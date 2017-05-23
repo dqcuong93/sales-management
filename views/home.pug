@@ -65,49 +65,75 @@ html(lang='en')
                 .col-md-6.col-md-offset-3
                     | Click outside the blue container to select this
                     strong row
-                    | . Columns are always contained within a row.
-                    strong Rows are indicated by a dashed grey line and rounded corners
+                    | .
+                    |             Columns are always contained within a row.
+                    strong
+                        | Rows are indicated by a dashed grey line and rounded
+                        | corners
                     | .
             hr
             .row
                 .text-center.col-md-12
                     .well
-                        strong  Easily build your page using the Bootstrap components from the Insert panel.
+                        strong
+                            | Easily build your page using the Bootstrap components from the Insert
+                            | panel.
             .row
-                .col-sm-4.text-center
+                .text-center.col-lg-4
                     h4
-                        | Adding
-                        strong Buttons
-                    p
-                        | Quickly add buttons to your page by using the button component in the insert panel.
-                    button.btn.btn-info.btn-sm(type='button') Info Button
-                    button.btn.btn-success.btn-sm(type='button') Success Button
-                .text-center.col-sm-4
+                        strong Khách hàng
+                    .form-horizontal
+                        .form-group
+                            label.control-label.col-sm-4(for='textfield2') Họ tên:
+                            .col-lg-7
+                                input#textfield(type='text', name='textfield')
+                        .form-group
+                            label.control-label.col-sm-4(for='textfield2') Số điện thoại:
+                            .col-lg-7
+                                input#textfield(name='textfield', type='text')
+                        .form-group
+                            label.control-label.col-sm-4(for='textfield7') Địa chỉ:
+                            .col-lg-7
+                                input#textfield(type='text', name='textfield')
+                        .form-group
+                            label.control-label.col-sm-4 Thu tiền:
+                            .col-lg-7
+                                input(type='checkbox')
+                .text-center.col-lg-8
                     h4
-                        | Adding
-                        strong Labels
-                    p Using the insert panel, add labels to your page by using the label component.
-                    span.label.label-warning Info Label
-                    span.label.label-danger Danger Label
-                .text-center.col-sm-4
-                    h4
-                        | Adding
-                        strong Glyphicons
-                    p You can also add glyphicons to your page from within the insert panel.
-                    .row
-                        .col-xs-4
-                            span.glyphicon.glyphicon-menu-hamburger(aria-hidden='true')
-                        .col-xs-4
-                            span.glyphicon.glyphicon-home(aria-hidden='true')
-                        .col-xs-4
-                            span.glyphicon.glyphicon-envelope(aria-hidden='true')
+                        strong Đơn hàng
+                    form#form1.form-horizontal(method='post', name='form1')
+                        .form-group
+                            label.control-label.col-sm-2(for='textfield2') Sâm:
+                            .col-lg-4
+                                input#textfield2(type='text', name='textfield2')
+                            label.col-sm-2.control-label(for='textfield3') Bông cúc:
+                            .col-lg-4
+                                input#textfield3(type='text', name='textfield3')
+                        .form-group
+                            label.control-label.col-sm-2(for='textfield2') Rong biển:
+                            .col-lg-4
+                                input#textfield2(type='text', name='textfield2')
+                            label.col-sm-2.control-label(for='textfield3') Nha đam:
+                            .col-lg-4
+                                input#textfield3(type='text', name='textfield3')
+                        .form-group
+                            label.control-label.col-sm-2(for='textfield2') Yogurt:
+                            .col-lg-4
+                                input#textfield2(name='textfield2', type='text')
+                        .form-group
+                            label.col-sm-2.control-label(for='datetime-local') Ngày:
+                            .col-lg-4
+                                input#datetime-local(name='datetime-local', type='date')
+                            label.col-sm-2.control-label(for='textfield6') Địa chỉ giao:
+                            .col-lg-4
+                                input#textfield(type='text', name='textfield')
             hr
             .row
                 .text-center.col-md-6.col-md-offset-3
-                    h4 Footer
-                    p
-                        | Copyright © 2015 · All Rights Reserved ·
-                        a(href='http://yourwebsite.com/') My Website
+                    h4
+                        strong A product by CuongDao
+                    p Copyright © 2017 · All Rights Reserved · Đào Quốc Cường
             hr
         // jQuery (necessary for Bootstrap's JavaScript plugins)
         script(src='./js/jquery-1.11.3.min.js')
