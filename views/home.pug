@@ -75,66 +75,69 @@ html(lang='en')
             .row
                 .text-center.col-md-12
                     .well
-                        strong
-                            | Easily build your page using the Bootstrap components from the Insert
-                            | panel.
-            .row
-                .text-center.col-lg-4
-                    h4
-                        strong Khách hàng
-                    .form-horizontal
-                        .form-group
-                            label.control-label.col-sm-4(for='textfield2') Họ tên:
-                            .col-lg-7
-                                input#textfield(type='text', name='textfield')
-                        .form-group
-                            label.control-label.col-sm-4(for='textfield2') Số điện thoại:
-                            .col-lg-7
-                                input#textfield(name='textfield', type='text')
-                        .form-group
-                            label.control-label.col-sm-4(for='textfield7') Địa chỉ:
-                            .col-lg-7
-                                input#textfield(type='text', name='textfield')
-                        .form-group
-                            label.control-label.col-sm-4 Thu tiền:
-                            .col-lg-7
-                                input(type='checkbox')
-                .text-center.col-lg-8
-                    h4
-                        strong Đơn hàng
-                    form#form1.form-horizontal(method='post', name='form1')
-                        .form-group
-                            label.control-label.col-sm-2(for='textfield2') Sâm:
-                            .col-lg-4
-                                input#textfield2(type='text', name='textfield2')
-                            label.col-sm-2.control-label(for='textfield3') Bông cúc:
-                            .col-lg-4
-                                input#textfield3(type='text', name='textfield3')
-                        .form-group
-                            label.control-label.col-sm-2(for='textfield2') Rong biển:
-                            .col-lg-4
-                                input#textfield2(type='text', name='textfield2')
-                            label.col-sm-2.control-label(for='textfield3') Nha đam:
-                            .col-lg-4
-                                input#textfield3(type='text', name='textfield3')
-                        .form-group
-                            label.control-label.col-sm-2(for='textfield2') Yogurt:
-                            .col-lg-4
-                                input#textfield2(name='textfield2', type='text')
-                        .form-group
-                            label.col-sm-2.control-label(for='datetime-local') Ngày:
-                            .col-lg-4
-                                input#datetime-local(name='datetime-local', type='date')
-                            label.col-sm-2.control-label(for='textfield6') Địa chỉ giao:
-                            .col-lg-4
-                                input#textfield(type='text', name='textfield')
-            hr
-            .row
-                .text-center.col-md-6.col-md-offset-3
-                    h4
-                        strong A product by CuongDao
-                    p Copyright © 2017 · All Rights Reserved · Đào Quốc Cường
-            hr
+                        strong Every day is a happy day
+            form#InvoiceForm.form-horizontal
+                .row
+                    .text-center.col-lg-4
+                        h4
+                            strong Khách hàng
+                        hr
+                        .form-horizontal
+                            .form-group
+                                label.control-label.col-sm-4(for='name') Họ tên:
+                                .col-lg-7
+                                    input#name(type='text', name='name')
+                            .form-group
+                                label.control-label.col-sm-4(for='phone') Số điện thoại:
+                                .col-lg-7
+                                    input#phone(type='text', name='phone')
+                            .form-group
+                                label.control-label.col-sm-4(for='address') Địa chỉ:
+                                .col-lg-7
+                                    input#address(type='text', name='address')
+                            .form-group
+                                label.control-label.col-sm-4(for='getmoney') Thu tiền:
+                                .col-lg-7
+                                    input#getmoney(type='checkbox', name='getmoney')
+                    .text-center.col-lg-8
+                        h4
+                            strong Đơn hàng
+                        hr
+                        form.form-horizontal
+                            .form-group
+                                label.control-label.col-sm-2(for='sam') Sâm:
+                                .col-lg-4
+                                    input#sam(type='text', name='sam')
+                                label.col-sm-2.control-label(for='bongcuc') Bông cúc:
+                                .col-lg-4
+                                    input#bongcuc(type='text', name='bongcuc')
+                            .form-group
+                                label.control-label.col-sm-2(for='rongbien') Rong biển:
+                                .col-lg-4
+                                    input#rongbien(type='text', name='rongbien')
+                                label.col-sm-2.control-label(for='nhadam') Nha đam:
+                                .col-lg-4
+                                    input#nhadam(type='text', name='nhadam')
+                            .form-group
+                                label.control-label.col-sm-2(for='yogurt') Yogurt:
+                                .col-lg-4
+                                    input#yogurt(type='text', name='yogurt')
+                            .form-group
+                                label.col-sm-2.control-label(for='datetime') Ngày:
+                                .col-lg-4
+                                    input#datetime(type='date', name='datetime')
+                                label.col-sm-2.control-label(for='shipaddress') Địa chỉ giao:
+                                .col-lg-4
+                                    input#shipaddress(type='text', name='shipaddress')
+                .col-sm-4.col-md-offset-4
+                    button.btn.btn-success.btn-block(type='submit' formaction='/home.pug' formmethod='post' formtarget='InvoiceForm') Submit
+        hr
+        .row
+            .text-center.col-md-6.col-md-offset-3
+                h4
+                    strong A product by CuongDao
+                p Copyright © 2017 · All Rights Reserved · Đào Quốc Cường
+        hr
         // jQuery (necessary for Bootstrap's JavaScript plugins)
         script(src='./js/jquery-1.11.3.min.js')
         // Include all compiled plugins (below), or include individual files as needed
