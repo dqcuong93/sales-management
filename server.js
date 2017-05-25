@@ -17,8 +17,9 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
-app.post('/home', function (req, res) {
-    console.JSON(req.body);
+app.post('/submit', function (req, res) {
+    console.log(req.body);
+    res.render('home');
 });
 
 var server = app.listen(8080, function () {
