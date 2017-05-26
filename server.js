@@ -18,9 +18,9 @@ app.get('/', function (req, res) {
 });
 
 app.post('/submit', function (req, res) {
-    // console.log(req.body);
-    db.createKhachHang(req.body);
-    db.createDonHang(req.body);
+    console.log(req.body);
+    db.createCustomer(req.body);
+    db.createInvoice(req.body);
     res.redirect('/');
 });
 

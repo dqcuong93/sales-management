@@ -1,150 +1,68 @@
-doctype html
-html(lang='en')
-    head
-        meta(charset='utf-8')
-        meta(http-equiv='X-UA-Compatible', content='IE=edge')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        title Homepage
-        // Bootstrap
-        link(href='./css/bootstrap.css', rel='stylesheet')
-        // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
-        // WARNING: Respond.js doesn't work if you view the page via file://
-        //
-          if lt IE 9
-          script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
-          script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
-    body
-        nav.navbar.navbar-default.navbar-inverse
-            .container-fluid
-                // Brand and toggle get grouped for better mobile display
-                .navbar-header
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#defaultNavbar1')
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand(href='#') Brand
-                // Collect the nav links, forms, and other content for toggling
-                #defaultNavbar1.collapse.navbar-collapse
-                    ul.nav.navbar-nav
-                        li.active
-                            a(href='#')
-                                | Input
-                                span.sr-only (current)
-                        li
-                            a(href='#') Report
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                                | Function
-                                span.caret
-                            ul.dropdown-menu(role='menu')
-                                li
-                                    a(href='#') Action
-                                li
-                                    a(href='#') Another action
-                                li
-                                    a(href='#') Something else here
-                                li.divider
-                                li
-                                    a(href='#') Separated link
-                                li.divider
-                                li
-                                    a(href='#') One more separated link
-                    form.navbar-form.navbar-left(role='search')
-                        .form-group
-                            input.form-control(type='text', placeholder='Search')
-                        button.btn.btn-default(type='submit') Submit
-                // /.navbar-collapse
-            // /.container-fluid
-        .container-fluid
-            .row
-                .col-md-6.col-md-offset-3
-                    h1.text-center Sales Management
-        .container
-            hr
-            .row.text-center
-                .col-md-6.col-md-offset-3
-                    | Click outside the blue container to select this
-                    strong row
-                    | .
-                    |             Columns are always contained within a row.
-                    strong
-                        | Rows are indicated by a dashed grey line and rounded
-                        | corners
-                    | .
-            hr
-            .row
-                .text-center.col-md-12
-                    .well
-                        strong Every day is a happy day
-            form#InvoiceForm.form-horizontal
-                .row
-                    .text-center.col-lg-4
-                        h4
-                            strong Khách hàng
-                        hr
-                        div
-                            .form-group
-                                label.control-label.col-sm-4(for='name') Họ tên:
-                                .col-lg-7
-                                    input#name(type='text', name='name')
-                            .form-group
-                                label.control-label.col-sm-4(for='phone') Số điện thoại:
-                                .col-lg-7
-                                    //10 or 11 numbers from 0 -> 9
-                                    input#phone(type='tel', pattern='[0-9]{10,11}', name='phone')
-                            .form-group
-                                label.control-label.col-sm-4(for='address') Địa chỉ:
-                                .col-lg-7
-                                    input#address(type='text', name='address')
-                            .form-group
-                                label.control-label.col-sm-4(for='getmoney') Thu tiền:
-                                .col-lg-1
-                                    input#getmoney(type='checkbox', name='getmoney')
-                                label.control-label.col-sm-4(for='familiarcustomer') Khách quen:
-                                .col-lg-1
-                                    input#familiarcustomer(type='checkbox', name='familiarcustomer')
-                    .text-center.col-lg-8
-                        h4
-                            strong Đơn hàng
-                        hr
-                        div
-                            .form-group
-                                label.control-label.col-sm-2(for='sam') Sâm:
-                                .col-lg-4
-                                    input#sam(type='number', name='sam')
-                                label.col-sm-2.control-label(for='bongcuc') Bông cúc:
-                                .col-lg-4
-                                    input#bongcuc(type='number', name='bongcuc')
-                            .form-group
-                                label.control-label.col-sm-2(for='rongbien') Rong biển:
-                                .col-lg-4
-                                    input#rongbien(type='number', name='rongbien')
-                                label.col-sm-2.control-label(for='nhadam') Nha đam:
-                                .col-lg-4
-                                    input#nhadam(type='number', name='nhadam')
-                            .form-group
-                                label.control-label.col-sm-2(for='yogurt') Yogurt:
-                                .col-lg-4
-                                    input#yogurt(type='number', name='yogurt')
-                            .form-group
-                                label.col-sm-2.control-label(for='datetime') Ngày:
-                                .col-lg-4
-                                    input#datetime(type='date', name='datetime')
-                                label.col-sm-2.control-label(for='shipaddress') Địa chỉ giao:
-                                .col-lg-4
-                                    input#shipaddress(type='text', name='shipaddress')
-                .col-lg-offset-4.col-lg-4
-                    button.btn.btn-success.btn-block(type='submit', formaction='/submit', formmethod='post', formtarget='InvoiceForm')
-                        | Submit
+extends layout
+
+block content
+    .container
         hr
         .row
-            .text-center.col-md-6.col-md-offset-3
-                h4
-                    strong A product by CuongDao
-                p Copyright © 2017 · All Rights Reserved · Đào Quốc Cường
-        hr
-        // jQuery (necessary for Bootstrap's JavaScript plugins)
-        script(src='./js/jquery-1.11.3.min.js')
-        // Include all compiled plugins (below), or include individual files as needed
-        script(src='./js/bootstrap.js')
+            .text-center.col-md-12
+                .well
+                    strong Every day is a happy day, works as hard as you can
+        form#InvoiceForm.form-horizontal
+            .row
+                .text-center.col-lg-4
+                    h4
+                        strong Khách hàng
+                    hr
+                    div
+                        .form-group
+                            label.control-label.col-sm-4(for='name') Họ tên:
+                            .col-lg-7
+                                input#name(type='text', name='name')
+                        .form-group
+                            label.control-label.col-sm-4(for='phone') Số điện thoại:
+                            .col-lg-7
+                                // 10 or 11 numbers from 0 -> 9
+                                input#phone(type='tel', pattern='[0-9]{10,11}', name='phone')
+                        .form-group
+                            label.control-label.col-sm-4(for='address') Địa chỉ:
+                            .col-lg-7
+                                input#address(type='text', name='address')
+                        .form-group
+                            label.control-label.col-sm-4(for='getmoney') Thu tiền:
+                            .col-lg-7
+                                select#getmoney.control-label(name='getmoney')
+                                    option Yes
+                                    option No
+                .text-center.col-lg-8
+                    h4
+                        strong Đơn hàng
+                    hr
+                    div
+                        .form-group
+                            label.control-label.col-sm-2(for='sam') Sâm:
+                            .col-lg-4
+                                input#sam(type='number', name='sam')
+                            label.col-sm-2.control-label(for='bongcuc') Bông cúc:
+                            .col-lg-4
+                                input#bongcuc(type='number', name='bongcuc')
+                        .form-group
+                            label.control-label.col-sm-2(for='rongbien') Rong biển:
+                            .col-lg-4
+                                input#rongbien(type='number', name='rongbien')
+                            label.col-sm-2.control-label(for='nhadam') Nha đam:
+                            .col-lg-4
+                                input#nhadam(type='number', name='nhadam')
+                        .form-group
+                            label.control-label.col-sm-2(for='yogurt') Yogurt:
+                            .col-lg-4
+                                input#yogurt(type='number', name='yogurt')
+                        .form-group
+                            label.col-sm-2.control-label(for='datetime') Ngày:
+                            .col-lg-4
+                                input#datetime(type='date', name='datetime')
+                            label.col-sm-2.control-label(for='shipaddress') Địa chỉ giao:
+                            .col-lg-4
+                                input#shipaddress(type='text', name='shipaddress')
+            .col-lg-offset-4.col-lg-4
+                button.btn.btn-success.btn-block(type='submit', formaction='/submit', formmethod='post', formtarget='InvoiceForm')
+                    | Submit

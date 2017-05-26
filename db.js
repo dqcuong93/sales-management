@@ -25,44 +25,47 @@ var chiPhi = sequelize.define('ChiPhi', {
     }
 });
 
-var donHang = sequelize.define('DonHang', {
-    sam: {
+var invoice = sequelize.define('Invoice', {
+    Sam: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    bongcuc: {
+    BongCuc: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    nhadam: {
+    NhaDam: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    rongbien: {
+    RongBien: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    yogurt: {
+    Yogurt: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+    },
+    ShipingAddress: {
+        type: Sequelize.TEXT
+    },
+    InvoiceDate: {
+        type: Sequelize.DATEONLY
+    },
+    MoneyReceive: {
+        type: Sequelize.TEXT
     }
 });
 
-var khachHang = sequelize.define('KhachHang', {
-    khachquen: {
+var customer = sequelize.define('Customer', {
+    Name: {
         type: Sequelize.TEXT
     },
-    hoten: {
-        type: Sequelize.TEXT
-    },
-    sodienthoai: {
+    Phone: {
         type: Sequelize.INTEGER
     },
-    diachi: {
+    Address: {
         type: Sequelize.TEXT
-    },
-    laytien: {
-        type: Sequelize.BOOLEAN
     }
 });
 
@@ -93,40 +96,42 @@ var nguyenLieu = sequelize.define('NguyenLieu', {
 // });
 
 //Tables relationship
-khachHang.hasMany(donHang);
+customer.hasMany(invoice);
 
 //Add data to tables
-var createDonHang = function (requestBody) {
-    khachHang.findOne({
-        where: {
-            hoten: requestBody.name
-        }
-    }).then(function (khachhang) {
-        var id = khachhang.id;
-        donHang.create({
-            sam: requestBody.sam,
-            bongcuc: requestBody.bongcuc,
-            nhadam: requestBody.nhadam,
-            rongbien: requestBody.rongbien,
-            yogurt: requestBody.yogurt,
-            KhachHangId: id
-        });
+var createCustomer = function (requestBody) {
+    customer.create({
+        Name: requestBody.name,
+        Phone: requestBody.phone,
+        Address: requestBody.address
     })
 };
 
-var createKhachHang = function (requestBody) {
-    khachHang.create({
-        khachquen: requestBody.familiarcustomer,
-        hoten: requestBody.name,
-        sodienthoai: requestBody.phone,
-        diachi: requestBody.address,
-        laytien: requestBody.getmoney
+var createInvoice = function (requestBody) {
+    customer.findOne({
+        where: {
+            Name: requestBody.name,
+            Phone: requestBody.phone
+        }
+    }).then(function (_customer) {
+        var id = _customer.id;
+        invoice.create({
+            Sam: requestBody.sam,
+            BongCuc: requestBody.bongcuc,
+            NhaDam: requestBody.nhadam,
+            RongBien: requestBody.rongbien,
+            Yogurt: requestBody.yogurt,
+            ShipingAddress: requestBody.shipaddress,
+            InvoiceDate: requestBody.invoicedate,
+            MoneyReceive: requestBody.getmoney,
+            CustomerId: id
+        });
     })
 };
 
 //Exports
 exports.sync = function () {
-    sequelize.sync({force:true}).then(function () {
+    sequelize.sync({force: true}).then(function () {
         console.log('Sync completed');
     });
 };
@@ -142,5 +147,5 @@ exports.authenticateConnection = function () {
         });
 };
 
-exports.createKhachHang = createKhachHang;
-exports.createDonHang = createDonHang;
+exports.createCustomer = createCustomer;
+exports.createInvoice = createInvoice;
