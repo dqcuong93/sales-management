@@ -91,15 +91,19 @@ html(lang='en')
                             .form-group
                                 label.control-label.col-sm-4(for='phone') Số điện thoại:
                                 .col-lg-7
-                                    input#phone(type='text', name='phone')
+                                    //10 or 11 numbers from 0 -> 9
+                                    input#phone(type='tel', pattern='[0-9]{10,11}', name='phone')
                             .form-group
                                 label.control-label.col-sm-4(for='address') Địa chỉ:
                                 .col-lg-7
                                     input#address(type='text', name='address')
                             .form-group
                                 label.control-label.col-sm-4(for='getmoney') Thu tiền:
-                                .col-lg-7
+                                .col-lg-1
                                     input#getmoney(type='checkbox', name='getmoney')
+                                label.control-label.col-sm-4(for='familiarcustomer') Khách quen:
+                                .col-lg-1
+                                    input#familiarcustomer(type='checkbox', name='familiarcustomer')
                     .text-center.col-lg-8
                         h4
                             strong Đơn hàng
@@ -108,21 +112,21 @@ html(lang='en')
                             .form-group
                                 label.control-label.col-sm-2(for='sam') Sâm:
                                 .col-lg-4
-                                    input#sam(type='text', name='sam')
+                                    input#sam(type='number', name='sam')
                                 label.col-sm-2.control-label(for='bongcuc') Bông cúc:
                                 .col-lg-4
-                                    input#bongcuc(type='text', name='bongcuc')
+                                    input#bongcuc(type='number', name='bongcuc')
                             .form-group
                                 label.control-label.col-sm-2(for='rongbien') Rong biển:
                                 .col-lg-4
-                                    input#rongbien(type='text', name='rongbien')
+                                    input#rongbien(type='number', name='rongbien')
                                 label.col-sm-2.control-label(for='nhadam') Nha đam:
                                 .col-lg-4
-                                    input#nhadam(type='text', name='nhadam')
+                                    input#nhadam(type='number', name='nhadam')
                             .form-group
                                 label.control-label.col-sm-2(for='yogurt') Yogurt:
                                 .col-lg-4
-                                    input#yogurt(type='text', name='yogurt')
+                                    input#yogurt(type='number', name='yogurt')
                             .form-group
                                 label.col-sm-2.control-label(for='datetime') Ngày:
                                 .col-lg-4

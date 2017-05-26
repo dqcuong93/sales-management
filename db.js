@@ -13,6 +13,8 @@ const sequelize = new Sequelize('salesmanagerDB', 'admin', 'Adm!n', {
     storage: './database/salesmanager.db'
 });
 
+
+//Define tables
 var chiPhi = sequelize.define('ChiPhi', {
     loainguyenlieu: {
         type: Sequelize.TEXT
@@ -47,7 +49,7 @@ var donHang = sequelize.define('DonHang', {
 });
 
 var khachHang = sequelize.define('KhachHang', {
-    loaikhachhang: {
+    khachquen: {
         type: Sequelize.TEXT
     },
     hoten: {
@@ -60,8 +62,7 @@ var khachHang = sequelize.define('KhachHang', {
         type: Sequelize.TEXT
     },
     laytien: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: 0
+        type: Sequelize.BOOLEAN
     }
 });
 
@@ -85,15 +86,47 @@ var nguyenLieu = sequelize.define('NguyenLieu', {
     }
 });
 
-var thanhPham = sequelize.define('ThanhPham', {
-    tenthanhpham: {
-        type: Sequelize.TEXT
-    }
-});
+// var thanhPham = sequelize.define('ThanhPham', {
+//     tenthanhpham: {
+//         type: Sequelize.TEXT
+//     }
+// });
 
+//Tables relationship
+khachHang.hasMany(donHang);
 
+//Add data to tables
+var createDonHang = function (requestBody) {
+    khachHang.findOne({
+        where: {
+            hoten: requestBody.name
+        }
+    }).then(function (khachhang) {
+        var id = khachhang.id;
+        donHang.create({
+            sam: requestBody.sam,
+            bongcuc: requestBody.bongcuc,
+            nhadam: requestBody.nhadam,
+            rongbien: requestBody.rongbien,
+            yogurt: requestBody.yogurt,
+            KhachHangId: id
+        });
+    })
+};
+
+var createKhachHang = function (requestBody) {
+    khachHang.create({
+        khachquen: requestBody.familiarcustomer,
+        hoten: requestBody.name,
+        sodienthoai: requestBody.phone,
+        diachi: requestBody.address,
+        laytien: requestBody.getmoney
+    })
+};
+
+//Exports
 exports.sync = function () {
-    sequelize.sync().then(function () {
+    sequelize.sync({force:true}).then(function () {
         console.log('Sync completed');
     });
 };
@@ -108,3 +141,6 @@ exports.authenticateConnection = function () {
             console.error('Unable to connect to the database:', err);
         });
 };
+
+exports.createKhachHang = createKhachHang;
+exports.createDonHang = createDonHang;

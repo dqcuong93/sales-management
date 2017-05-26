@@ -8,7 +8,7 @@ var upload = multer({dest: 'uploads/'});
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(upload.array());
@@ -18,8 +18,10 @@ app.get('/', function (req, res) {
 });
 
 app.post('/submit', function (req, res) {
-    console.log(req.body);
-    res.render('home');
+    // console.log(req.body);
+    db.createKhachHang(req.body);
+    db.createDonHang(req.body);
+    res.redirect('/');
 });
 
 var server = app.listen(8080, function () {
