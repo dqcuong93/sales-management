@@ -17,21 +17,28 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
+app.post('/', function (req, res) {
+    db.dataFinding(req.body);
+    res.redirect('/');
+});
+
+app.get('/bill', function (req, res) {
+    res.render('bill');
+});
+
+app.post('/bill', function (req, res) {
+    console.log(req.body);
+    db.createCustomer(req.body);
+    db.createInvoice(req.body);
+    res.redirect('/bill');
+});
+
 app.get('/cost', function (req, res) {
-    console.log('GET method called');
     res.render('cost');
 });
 
 app.post('/cost', function (req, res) {
-   console.log('POST method called');
-   res.redirect('/cost')
-});
-
-app.post('/', function (req, res) {
-    console.log(req.body);
-    db.createCustomer(req.body);
-    db.createInvoice(req.body);
-    res.redirect('/');
+    res.redirect('/cost')
 });
 
 var server = app.listen(8080, function () {

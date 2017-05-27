@@ -15,16 +15,6 @@ const sequelize = new Sequelize('salesmanagerDB', 'admin', 'Adm!n', {
 
 
 //Define tables
-var chiPhi = sequelize.define('ChiPhi', {
-    loainguyenlieu: {
-        type: Sequelize.TEXT
-    },
-    giathanh: {
-        type: Sequelize.DECIMAL,
-        allowNull: false
-    }
-});
-
 var invoice = sequelize.define('Invoice', {
     Sam: {
         type: Sequelize.INTEGER,
@@ -69,15 +59,17 @@ var customer = sequelize.define('Customer', {
     }
 });
 
-var material = sequelize.define('Material', {
+var Costing = sequelize.define('Costing', {
+    Material: {
+        type: Sequelize.TEXT
+    },
     Quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
     },
     Unit: {
-        type: Sequelize.TEXT,
-        defaultValue: 'KG'
+        type: Sequelize.TEXT
     },
     ShopAddress: {
         type: Sequelize.TEXT
@@ -86,6 +78,9 @@ var material = sequelize.define('Material', {
         type: Sequelize.DECIMAL,
         allowNull: false,
         defaultValue: 0
+    },
+    Total: {
+        type: Sequelize.DECIMAL
     }
 });
 
@@ -129,6 +124,21 @@ var createInvoice = function (requestBody) {
     })
 };
 
+//DB function
+var dataFinding = function (searchString) {
+    customer.findAll({
+        where: [{
+            Name: searchString
+        }, {
+            Phone: searchString
+        }, {
+            Address: searchString
+        }]
+    }). then(function (_customer) {
+        console.log(_customer);
+    })
+};
+
 //Exports
 exports.sync = function () {
     sequelize.sync({force: true}).then(function () {
@@ -149,3 +159,4 @@ exports.authenticateConnection = function () {
 
 exports.createCustomer = createCustomer;
 exports.createInvoice = createInvoice;
+exports.dataFinding = dataFinding;

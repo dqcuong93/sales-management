@@ -1,0 +1,68 @@
+extends layout
+
+block content
+    .container
+        hr
+        .row
+            .text-center.col-md-12
+                .well
+                    strong Every day is a happy day, works as hard as you can
+        form#InvoiceForm.form-horizontal
+            .row
+                .text-center.col-lg-4
+                    h4
+                        strong Khách hàng
+                    hr
+                    div
+                        .form-group
+                            label.control-label.col-sm-4(for='name') Họ tên:
+                            .col-lg-7
+                                input#name.form-control(type='text', name='name', placeholder='Your name here')
+                        .form-group
+                            label.control-label.col-sm-4(for='phone') Số điện thoại:
+                            .col-lg-7
+                                // 10 or 11 numbers from 0 -> 9
+                                input#phone.form-control(type='tel', pattern='[0-9]{10,11}', name='phone', placeholder='Phone number')
+                        .form-group
+                            label.control-label.col-sm-4(for='address') Địa chỉ:
+                            .col-lg-7
+                                input#address.form-control(type='text', name='address', placeholder='Your address')
+                        .form-group
+                            label.control-label.col-sm-4(for='getmoney') Thu tiền:
+                            .col-lg-7
+                                select#getmoney.selectpicker(name='getmoney')
+                                    option Yes
+                                    option No
+                .text-center.col-lg-8
+                    h4
+                        strong Đơn hàng
+                    hr
+                    div
+                        .form-group
+                            label.control-label.col-sm-2(for='sam') Sâm:
+                            .col-lg-4
+                                input#sam.form-control(type='number', name='sam')
+                            label.col-sm-2.control-label(for='bongcuc') Bông cúc:
+                            .col-lg-4
+                                input#bongcuc.form-control(type='number', name='bongcuc')
+                        .form-group
+                            label.control-label.col-sm-2(for='rongbien') Rong biển:
+                            .col-lg-4
+                                input#rongbien.form-control(type='number', name='rongbien')
+                            label.col-sm-2.control-label(for='nhadam') Nha đam:
+                            .col-lg-4
+                                input#nhadam.form-control(type='number', name='nhadam')
+                        .form-group
+                            label.control-label.col-sm-2(for='yogurt') Yogurt:
+                            .col-lg-4
+                                input#yogurt.form-control(type='number', name='yogurt')
+                        .form-group
+                            label.col-sm-2.control-label(for='invoicedate') Ngày:
+                            .col-lg-4
+                                input#invoicedate.form-control(type='date', name='invoicedate')
+                            label.col-sm-2.control-label(for='shipaddress') Địa chỉ giao:
+                            .col-lg-4
+                                input#shipaddress.form-control(type='text', name='shipaddress', placeholder='Shipping address')
+            .col-lg-offset-4.col-lg-4
+                button.btn.btn-success.btn-block(type='submit', formaction='/bill', formmethod='post', formtarget='InvoiceForm')
+                    | Submit
