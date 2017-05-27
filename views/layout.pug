@@ -7,6 +7,7 @@ html(lang='en')
         title Homepage
         // Bootstrap
         link(href='./css/bootstrap.css', rel='stylesheet')
+        link(href='./css/bootstrap-select.css', rel='stylesheet')
         // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
         // WARNING: Respond.js doesn't work if you view the page via file://
         //
@@ -28,11 +29,11 @@ html(lang='en')
                 #defaultNavbar1.collapse.navbar-collapse
                     ul.nav.navbar-nav
                         li.active
-                            a(href='#')
-                                | Input
+                            a(href='/')
+                                | Bill
                                 span.sr-only (current)
                         li
-                            a(href='#') Report
+                            a(href='/cost') Costing
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
                                 | Function
@@ -72,3 +73,4 @@ html(lang='en')
     script(src='./js/jquery-1.11.3.min.js')
     // Include all compiled plugins (below), or include individual files as needed
     script(src='./js/bootstrap.js')
+    script(src='./js/bootstrap-select.js')

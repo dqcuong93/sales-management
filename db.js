@@ -46,7 +46,7 @@ var invoice = sequelize.define('Invoice', {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    ShipingAddress: {
+    ShippingAddress: {
         type: Sequelize.TEXT
     },
     InvoiceDate: {
@@ -69,20 +69,20 @@ var customer = sequelize.define('Customer', {
     }
 });
 
-var nguyenLieu = sequelize.define('NguyenLieu', {
-    soluong: {
+var material = sequelize.define('Material', {
+    Quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
     },
-    donvitinh: {
+    Unit: {
         type: Sequelize.TEXT,
         defaultValue: 'KG'
     },
-    diachimua: {
+    ShopAddress: {
         type: Sequelize.TEXT
     },
-    giathanh: {
+    Price: {
         type: Sequelize.DECIMAL,
         allowNull: false,
         defaultValue: 0
@@ -121,7 +121,7 @@ var createInvoice = function (requestBody) {
             NhaDam: requestBody.nhadam,
             RongBien: requestBody.rongbien,
             Yogurt: requestBody.yogurt,
-            ShipingAddress: requestBody.shipaddress,
+            ShippingAddress: requestBody.shipaddress,
             InvoiceDate: requestBody.invoicedate,
             MoneyReceive: requestBody.getmoney,
             CustomerId: id

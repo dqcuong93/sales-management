@@ -7,6 +7,7 @@
     <title>Homepage</title>
     <!-- Bootstrap-->
     <link href="../public/css/bootstrap.css" rel="stylesheet">
+    <link href="../public/css/bootstrap-select.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
     <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
     <!--
@@ -61,99 +62,43 @@
         </div>
     </div>
 </div>
+<!--Put your code here-->
 <div class="container">
     <hr>
-    <div class="row">
-        <div class="text-center col-md-12">
-            <div class="well"><strong>Every day is a happy day, works as hard as you can</strong></div>
-        </div>
+    <div class="well" align="center">
+        <h3>
+            <strong>Ingredient cost, this place control your money flow</strong>
+        </h3>
     </div>
-    <form id="InvoiceForm" class="form-horizontal">
-        <div class="row">
-            <div class="text-center col-lg-4">
-                <h4><strong>Khách hàng</strong></h4>
-                <hr>
-                <div>
-                    <div class="form-group">
-                        <label for="name" class="control-label col-sm-4">Họ tên:</label>
-                        <div class="col-lg-7">
-                            <input id="name" type="text" name="name">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone" class="control-label col-sm-4">Số điện thoại:</label>
-                        <div class="col-lg-7">
-                            <!--10 or 11 numbers from 0 -> 9-->
-                            <input id="phone" type="tel" pattern="[0-9]{10,11}" name="phone">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="address" class="control-label col-sm-4">Địa chỉ:</label>
-                        <div class="col-lg-7">
-                            <input id="address" type="text" name="address">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="getmoney" class="control-label col-sm-4">Thu tiền:</label>
-                        <div class="col-lg-7">
-                            <select id="getmoney" name="getmoney" class="control-label">
-                                <option>Chưa thu</option>
-                                <option>Đã thu</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center col-lg-8">
-                <h4><strong>Đơn hàng</strong></h4>
-                <hr>
-                <div>
-                    <div class="form-group">
-                        <label for="sam" class="control-label col-sm-2">Sâm:</label>
-                        <div class="col-lg-4">
-                            <input id="sam" type="number" name="sam">
-                        </div>
-                        <label for="bongcuc" class="col-sm-2 control-label">Bông cúc:</label>
-                        <div class="col-lg-4">
-                            <input id="bongcuc" type="number" name="bongcuc">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="rongbien" class="control-label col-sm-2">Rong biển:</label>
-                        <div class="col-lg-4">
-                            <input id="rongbien" type="number" name="rongbien">
-                        </div>
-                        <label for="nhadam" class="col-sm-2 control-label">Nha đam:</label>
-                        <div class="col-lg-4">
-                            <input id="nhadam" type="number" name="nhadam">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="yogurt" class="control-label col-sm-2">Yogurt:</label>
-                        <div class="col-lg-4">
-                            <input id="yogurt" type="number" name="yogurt">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="datetime" class="col-sm-2 control-label">Ngày:</label>
-                        <div class="col-lg-4">
-                            <input id="datetime" type="date" name="datetime">
-                        </div>
-                        <label for="shipaddress" class="col-sm-2 control-label">Địa chỉ giao:</label>
-                        <div class="col-lg-4">
-                            <input id="shipaddress" type="text" name="shipaddress">
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <hr>
+    <form id="costsubmit" class="form-group">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">Nguyên liệu</span>
+            <input type="text" class="form-control" placeholder="Mua cái gì nè">
         </div>
-        <div class="col-lg-offset-4 col-lg-4">
-            <button type="submit" formaction="/submit" formmethod="post" formtarget="InvoiceForm"
-                    class="btn btn-success btn-block">Submit
-            </button>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">Số lượng</span>
+            <input type="text" class="form-control" placeholder="Mua bao nhiêu ta ?">
+            <select class="selectpicker">
+                <option>KG</option>
+                <option>G</option>
+                <option>Cái</option>
+                <option>Bịch</option>
+            </select>
+        </div>
+        <div class="input-group input-group-lg"><span class="input-group-addon">Địa chỉ</span>
+            <input type="text" class="form-control" placeholder="Mua ở đâu nhỉ">
+        </div>
+        <div class="input-group input-group-lg"><span class="input-group-addon">Giá thành</span>
+            <input type="text" class="form-control" placeholder="Hết bao nhiêu :(">
+            <span class="input-group-addon">VNĐ</span>
+        </div>
+        <div class="col-lg-4 col-lg-offset-4">
+            <button class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
         </div>
     </form>
 </div>
+<!--End your code here-->
 <hr>
 <div class="row">
     <div class="text-center col-md-6 col-md-offset-3">
@@ -166,5 +111,6 @@
 <script src="../public/js/jquery-1.11.3.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed-->
 <script src="../public/js/bootstrap.js"></script>
+<script src="../public/js/bootstrap-select.js"></script>
 </body>
 </html>

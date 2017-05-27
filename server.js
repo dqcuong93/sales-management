@@ -17,7 +17,17 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
-app.post('/submit', function (req, res) {
+app.get('/cost', function (req, res) {
+    console.log('GET method called');
+    res.render('cost');
+});
+
+app.post('/cost', function (req, res) {
+   console.log('POST method called');
+   res.redirect('/cost')
+});
+
+app.post('/', function (req, res) {
     console.log(req.body);
     db.createCustomer(req.body);
     db.createInvoice(req.body);

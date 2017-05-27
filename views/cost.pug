@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    .container
+        hr
+        .well(align='center')
+            h3
+                strong Ingredient cost, this place control your money flow
+        hr
+        form.form-group
+            .input-group.input-group-lg
+                span.input-group-addon Nguyên liệu
+                input.form-control(type='text', placeholder='Mua cái gì nè')
+            .input-group.input-group-lg
+                span.input-group-addon Số lượng
+                input.form-control(type='text', placeholder='Mua bao nhiêu ta ?')
+                select.selectpicker
+                    option KG
+                    option G
+                    option Cái
+                    option Bịch
+            .input-group.input-group-lg
+                span.input-group-addon Địa chỉ
+                input.form-control(type='text', placeholder='Mua ở đâu nhỉ')
+            .input-group.input-group-lg
+                span.input-group-addon Giá thành
+                input.form-control(type='text', placeholder='Hết bao nhiêu :(')
+                span.input-group-addon VNĐ
+            .col-lg-4.col-lg-offset-4
+                button.btn.btn-success.btn-lg.btn-block(type='submit', formaction='/cost', formmethod='post') Submit
