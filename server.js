@@ -27,7 +27,6 @@ app.get('/bill', function (req, res) {
 });
 
 app.post('/bill', function (req, res) {
-    console.log(req.body);
     db.createCustomer(req.body);
     db.createInvoice(req.body);
     res.redirect('/bill');
@@ -38,6 +37,7 @@ app.get('/cost', function (req, res) {
 });
 
 app.post('/cost', function (req, res) {
+    db.createCost(req.body);
     res.redirect('/cost')
 });
 

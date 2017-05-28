@@ -14,11 +14,12 @@ block content
             .input-group.input-group-lg
                 span.input-group-addon Số lượng
                 input.form-control(type='number', placeholder='Mua bao nhiêu ta ?', name='quantity')
-                select.selectpicker
+                select.selectpicker(name="unit")
                     option KG
-                    option G
+                    option Gam
                     option Cái
                     option Bịch
+                    option Quả
             .input-group.input-group-lg
                 span.input-group-addon Địa chỉ
                 input.form-control(type='text', placeholder='Mua ở đâu nhỉ', name='shopaddress')

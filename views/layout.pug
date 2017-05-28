@@ -74,3 +74,8 @@ html(lang='en')
     // Include all compiled plugins (below), or include individual files as needed
     script(src='./js/bootstrap.js')
     script(src='./js/bootstrap-select.js')
+    script.
+        $(".nav li").on("click", function () {
+            $(".nav li").removeClass("active");
+            $(this).addClass("active");
+        });

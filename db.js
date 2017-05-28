@@ -59,7 +59,7 @@ var customer = sequelize.define('Customer', {
     }
 });
 
-var Costing = sequelize.define('Costing', {
+var costing = sequelize.define('Costing', {
     Material: {
         type: Sequelize.TEXT
     },
@@ -124,16 +124,26 @@ var createInvoice = function (requestBody) {
     })
 };
 
+var createCost = function (requestBody) {
+  costing.create({
+      Material: requestBody.material,
+      Quantity: requestBody.quantity,
+      Unit: requestBody.unit,
+      ShopAddress: requestBody.shopaddress,
+      Price: requestBody.price
+  })
+};
+
 //DB function
-var dataFinding = function (searchString) {
+var dataFinding = function (requestBody) {
     customer.findAll({
-        where: [{
-            Name: searchString
-        }, {
-            Phone: searchString
-        }, {
-            Address: searchString
-        }]
+        where: {
+            $or: [
+                {Name: {$notLike: requestBody.searchstring}},
+                {Phone: {$notLike: requestBody.searchstring}},
+                {Address: {$notLike: requestBody.searchstring}}
+            ]
+        }
     }). then(function (_customer) {
         console.log(_customer);
     })
@@ -160,3 +170,4 @@ exports.authenticateConnection = function () {
 exports.createCustomer = createCustomer;
 exports.createInvoice = createInvoice;
 exports.dataFinding = dataFinding;
+exports.createCost = createCost;
