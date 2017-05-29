@@ -18,8 +18,12 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    db.dataFinding(req.body);
-    res.redirect('/');
+    db.dataFinding(req.body, function (data) {
+        var _data = JSON.parse(data);
+        res.render('home', {
+            tableData: _data
+        })
+    });
 });
 
 app.get('/bill', function (req, res) {

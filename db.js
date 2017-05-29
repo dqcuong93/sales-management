@@ -125,33 +125,33 @@ var createInvoice = function (requestBody) {
 };
 
 var createCost = function (requestBody) {
-  costing.create({
-      Material: requestBody.material,
-      Quantity: requestBody.quantity,
-      Unit: requestBody.unit,
-      ShopAddress: requestBody.shopaddress,
-      Price: requestBody.price
-  })
+    costing.create({
+        Material: requestBody.material,
+        Quantity: requestBody.quantity,
+        Unit: requestBody.unit,
+        ShopAddress: requestBody.shopaddress,
+        Price: requestBody.price
+    })
 };
 
 //DB function
-var dataFinding = function (requestBody) {
+var dataFinding = function (requestBody, callback) {
     customer.findAll({
         where: {
             $or: [
-                {Name: {$notLike: requestBody.searchstring}},
-                {Phone: {$notLike: requestBody.searchstring}},
-                {Address: {$notLike: requestBody.searchstring}}
+                {Name: {$like: '%' + requestBody.searchstring + '%'}},
+                {Phone: {$like: '%' + requestBody.searchstring + '%'}},
+                {Address: {$like: '%' + requestBody.searchstring + '%'}}
             ]
         }
-    }). then(function (_customer) {
-        console.log(_customer);
-    })
+    }).then(function (_customer) {
+        callback(JSON.stringify(_customer));
+    });
 };
 
 //Exports
 exports.sync = function () {
-    sequelize.sync({force: true}).then(function () {
+    sequelize.sync({force: false}).then(function () {
         console.log('Sync completed');
     });
 };

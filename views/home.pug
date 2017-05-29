@@ -7,16 +7,23 @@ block content
             span.glyphicon.glyphicon-search.input-group-addon
             input.form-control(type='search', placeholder='Search', name='searchstring')
         hr
-        .row(align='center', style=' background-color: aqua')
-            .col-lg-4
-                h4
-                    strong Khách hàng
-            .col-lg-4
-                h4
-                    strong Số điện thoại
-            .col-lg-4
-                h4
-                    strong Địa chỉ
+        .table-responsive
+            table.table.table-striped.table-hover
+                thead
+                    tr
+                        th STT
+                        th Tên
+                        th Địa chỉ
+                        th Số điện thoại
+                tbody
+                    if tableData
+                        - var i = 1
+                        for userInfo in tableData
+                            tr
+                                td=i++
+                                td=userInfo.Name
+                                td=userInfo.Phone
+                                td=userInfo.Address
 
     //Whenever user hit Enter, the search form will submit the search string
     script.
