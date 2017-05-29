@@ -5,7 +5,7 @@ block content
     .container
         form#homeform.input-group.input-group-lg(method='post', action='/')
             span.glyphicon.glyphicon-search.input-group-addon
-            input.form-control(type='search', placeholder='Search', name='searchstring')
+            input.form-control(type='search', placeholder='Anything about customer', name='searchstring')
         hr
         .table-responsive
             table.table.table-striped.table-hover
@@ -13,8 +13,8 @@ block content
                     tr
                         th STT
                         th Tên
-                        th Địa chỉ
                         th Số điện thoại
+                        th Địa chỉ
                 tbody
                     if tableData
                         - var i = 1

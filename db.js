@@ -52,7 +52,7 @@ var customer = sequelize.define('Customer', {
         type: Sequelize.TEXT
     },
     Phone: {
-        type: Sequelize.INTEGER
+        type: Sequelize.TEXT
     },
     Address: {
         type: Sequelize.TEXT

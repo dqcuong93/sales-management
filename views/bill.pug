@@ -6,7 +6,8 @@ block content
         .row
             .text-center.col-md-12
                 .well
-                    strong Every day is a happy day, works as hard as you can
+                    h3
+                        strong Every day is a happy day, works as hard as you can
         form#InvoiceForm.form-horizontal
             .row
                 .text-center.col-lg-4
@@ -22,7 +23,7 @@ block content
                             label.control-label.col-sm-4(for='phone') Số điện thoại:
                             .col-lg-7
                                 // 10 or 11 numbers from 0 -> 9
-                                input#phone.form-control(type='text', pattern='[0-9]{10,11}', name='phone', placeholder='Phone number')
+                                input#phone.form-control(type='tel', pattern='[0-9]{10,11}', name='phone', placeholder='Phone number')
                         .form-group
                             label.control-label.col-sm-4(for='address') Địa chỉ:
                             .col-lg-7
