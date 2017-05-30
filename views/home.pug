@@ -8,7 +8,7 @@ block content
             input.form-control(type='search', placeholder='Anything about customer', name='searchstring')
         hr
         .table-responsive
-            table.table.table-striped.table-hover
+            table#table(data-toggle='table', data-locale="en-US", data-classes='table table-no-bordered table-hover')
                 thead
                     tr
                         th STT
@@ -32,3 +32,6 @@ block content
                 $('#homeform').submit();
             }
         })
+        $('#table').on('click-row.bs.table', function (e, row, $element) {
+            window.alert(row + ' ' + $element);
+        });
