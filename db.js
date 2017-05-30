@@ -12,7 +12,8 @@ const sequelize = new Sequelize('salesmanagerDB', 'admin', 'Adm!n', {
     // SQLite only
     storage: './database/salesmanager.db'
 });
-
+//Change UTC timezone
+sequelize.options.timezone = '+07:00';
 
 //Define tables
 var invoice = sequelize.define('Invoice', {
@@ -130,7 +131,8 @@ var createCost = function (requestBody) {
         Quantity: requestBody.quantity,
         Unit: requestBody.unit,
         ShopAddress: requestBody.shopaddress,
-        Price: requestBody.price
+        Price: requestBody.price,
+        Total: requestBody.price * requestBody.quantity
     })
 };
 
@@ -151,7 +153,7 @@ var dataFinding = function (requestBody, callback) {
 
 //Exports
 exports.sync = function () {
-    sequelize.sync({force: false}).then(function () {
+    sequelize.sync({force: true}).then(function () {
         console.log('Sync completed');
     });
 };

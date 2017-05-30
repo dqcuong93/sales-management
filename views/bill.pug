@@ -18,7 +18,7 @@ block content
                         .form-group
                             label.control-label.col-sm-4(for='name') Họ tên:
                             .col-lg-7
-                                input#name.form-control(type='text', name='name', placeholder='Your name here')
+                                input#name.form-control(type='text', name='name', placeholder='Customer name here')
                         .form-group
                             label.control-label.col-sm-4(for='phone') Số điện thoại:
                             .col-lg-7
@@ -42,21 +42,26 @@ block content
                         .form-group
                             label.control-label.col-sm-2(for='sam') Sâm:
                             .col-lg-4
-                                input#sam.form-control(type='number', name='sam')
+                                input#sam.form-control(type='number', name='sam', value=0,
+                                onclick='this.setSelectionRange(0, this.value.length)')
                             label.col-sm-2.control-label(for='bongcuc') Bông cúc:
                             .col-lg-4
-                                input#bongcuc.form-control(type='number', name='bongcuc')
+                                input#bongcuc.form-control(type='number', name='bongcuc', value=0,
+                                onclick='this.setSelectionRange(0, this.value.length)')
                         .form-group
                             label.control-label.col-sm-2(for='rongbien') Rong biển:
                             .col-lg-4
-                                input#rongbien.form-control(type='number', name='rongbien')
+                                input#rongbien.form-control(type='number', name='rongbien', value=0,
+                                onclick='this.setSelectionRange(0, this.value.length)')
                             label.col-sm-2.control-label(for='nhadam') Nha đam:
                             .col-lg-4
-                                input#nhadam.form-control(type='number', name='nhadam')
+                                input#nhadam.form-control(type='number', name='nhadam', value=0,
+                                onclick='this.setSelectionRange(0, this.value.length)')
                         .form-group
                             label.control-label.col-sm-2(for='yogurt') Yogurt:
                             .col-lg-4
-                                input#yogurt.form-control(type='number', name='yogurt')
+                                input#yogurt.form-control(type='number', name='yogurt', value=0,
+                                onclick='this.setSelectionRange(0, this.value.length)')
                         .form-group
                             label.col-sm-2.control-label(for='invoicedate') Ngày:
                             .col-lg-4

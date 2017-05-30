@@ -63,17 +63,38 @@
     </div>
 </div>
 <!--Put your code here-->
-<hr>
 <div class="container">
-    <div class="input-group input-group-lg">
-        <span class="glyphicon glyphicon-search input-group-addon"></span>
-        <input type="search" class="form-control" placeholder="Search">
+    <hr/>
+    <div align="center" class="well">
+        <h3><strong>Ingredient cost, this place control your money flow</strong></h3>
     </div>
-    <div class="row" align="center" style=" background-color: aqua">
-        <div class="col-lg-4"><h4><strong>Khách hàng</strong></h4></div>
-        <div class="col-lg-4"><h4><strong>Số điện thoại</strong></h4></div>
-        <div class="col-lg-4"><h4><strong>Địa chỉ</strong></h4></div>
-    </div>
+    <hr/>
+    <form class="form-group">
+        <div class="input-group input-group-lg"><span class="input-group-addon">Nguyên liệu</span>
+            <input type="text" placeholder="Mua cái gì nè" name="material" class="form-control"/>
+        </div>
+        <div class="input-group input-group-lg"><span class="input-group-addon">Số lượng</span>
+            <input type="number" placeholder="Mua bao nhiêu ta ?" name="quantity" class="form-control"/>
+            <select name="unit" class="selectpicker">
+                <option>KG</option>
+                <option>Gam</option>
+                <option>Cái</option>
+                <option>Bịch</option>
+                <option>Quả</option>
+            </select>
+        </div>
+        <div class="input-group input-group-lg"><span class="input-group-addon">Địa chỉ</span>
+            <input type="text" placeholder="Mua ở đâu nhỉ" name="shopaddress" class="form-control"/>
+        </div>
+        <div class="input-group input-group-lg"><span class="input-group-addon">Giá thành</span>
+            <input type="number" placeholder="Hết bao nhiêu :(" name="price" class="form-control"/><span
+                    class="input-group-addon">VNĐ</span>
+        </div>
+        <div class="col-lg-4 col-lg-offset-4">
+            <button type="submit" formaction="/cost" formmethod="post" class="btn btn-success btn-lg btn-block">Submit
+            </button>
+        </div>
+    </form>
 </div>
 <!--End your code here-->
 <hr>
