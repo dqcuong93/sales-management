@@ -7,23 +7,27 @@ block content
             span.glyphicon.glyphicon-search.input-group-addon
             input.form-control(type='search', placeholder='Anything about customer', name='searchstring')
         hr
-        .table-responsive
-            table#table(data-toggle='table', data-locale="en-US", data-classes='table table-no-bordered table-hover')
-                thead
-                    tr
-                        th STT
-                        th Tên
-                        th Số điện thoại
-                        th Địa chỉ
-                tbody
-                    if tableData
-                        - var i = 1
-                        for userInfo in tableData
-                            tr
-                                td=i++
-                                td=userInfo.Name
-                                td=userInfo.Phone
-                                td=userInfo.Address
+        table#table(data-toggle='table', data-locale="en-US", data-classes='table table-no-bordered table-hover')
+            thead
+                tr
+                    th STT
+                    th Tên
+                    th Số điện thoại
+                    th Địa chỉ
+            tbody
+                tr
+                    td Test row
+                    td 123
+                    td 456
+                    td 789
+                if tableData
+                    - var i = 1
+                    for userInfo in tableData
+                        tr
+                            td=i++
+                            td=userInfo.Name
+                            td=userInfo.Phone
+                            td=userInfo.Address
 
     //Whenever user hit Enter, the search form will submit the search string
     script.
@@ -33,5 +37,5 @@ block content
             }
         })
         $('#table').on('click-row.bs.table', function (e, row, $element) {
-            window.alert(row + ' ' + $element);
+            console.log(row + ' ' + $element);
         });
