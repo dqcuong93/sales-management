@@ -7,7 +7,8 @@ block content
             span.glyphicon.glyphicon-search.input-group-addon
             input.form-control(type='search', placeholder='Anything about customer', name='searchstring')
         hr
-        table#table(data-toggle='table', data-locale="en-US", data-classes='table table-no-bordered table-hover')
+        table#table(data-toggle='table', data-locale="en-US",
+            data-classes='table table-no-bordered table-hover')
             thead
                 tr
                     th STT
@@ -15,11 +16,6 @@ block content
                     th Số điện thoại
                     th Địa chỉ
             tbody
-                tr
-                    td Test row
-                    td 123
-                    td 456
-                    td 789
                 if tableData
                     - var i = 1
                     for userInfo in tableData
@@ -29,13 +25,16 @@ block content
                             td=userInfo.Phone
                             td=userInfo.Address
 
-    //Whenever user hit Enter, the search form will submit the search string
     script.
+        //Whenever user hit Enter, the search form will submit the search string
         $('input').keypress(function (event) {
             if (event.keyCode === 13) {
                 $('#homeform').submit();
             }
         })
-        $('#table').on('click-row.bs.table', function (e, row, $element) {
-            console.log(row + ' ' + $element);
-        });
+        //Post row data to specific URL
+        $('#table').bootstrapTable({
+            onClickRow: function (rowData) {
+                $.post('/submit', rowData)
+            }
+        })

@@ -45,6 +45,10 @@ app.post('/cost', function (req, res) {
     res.redirect('/cost')
 });
 
+app.post('/submit', function (req, res) {
+    console.log(req.body);
+});
+
 var server = app.listen(8080, function () {
     console.log('Server has started on port ' + server.address().port);
     db.authenticateConnection();
