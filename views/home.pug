@@ -1,35 +1,33 @@
 extends layout
 
 block content
+    form#homeform.input-group.input-group-lg(method='post', action='/')
+        span.glyphicon.glyphicon-search.input-group-addon
+        input#searchInput.form-control(type='search', placeholder='Anything about customer', name='searchstring')
     hr
-    .container
-        form#homeform.input-group.input-group-lg(method='post', action='/')
-            span.glyphicon.glyphicon-search.input-group-addon
-            input.form-control(type='search', placeholder='Anything about customer', name='searchstring')
-        hr
-        table#table(data-toggle='table', data-locale="en-US",
-            data-classes='table table-no-bordered table-hover')
-            thead
-                tr
-                    th STT
-                    th Tên
-                    th Số điện thoại
-                    th Địa chỉ
-            tbody
-                if tableData
-                    - var i = 1
-                    for userInfo in tableData
-                        tr
-                            td=i++
-                            td=userInfo.Name
-                            td=userInfo.Phone
-                            td=userInfo.Address
+    table#table(data-toggle='table', data-locale="en-US",
+    data-classes='table table-no-bordered table-hover')
+        thead
+            tr
+                th STT
+                th Tên
+                th Số điện thoại
+                th Địa chỉ
+        tbody
+            if tableData
+                - var i = 1
+                for userInfo in tableData
+                    tr
+                        td=i++
+                        td=userInfo.Name
+                        td=userInfo.Phone
+                        td=userInfo.Address
 
     script.
         //Whenever user hit Enter, the search form will submit the search string
         $('input').keypress(function (event) {
             if (event.keyCode === 13) {
-                $('#homeform').submit();
+                $('#homeform').submit()
             }
         })
         //Post row data to specific URL

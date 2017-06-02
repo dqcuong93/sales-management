@@ -1,0 +1,37 @@
+extends layout
+
+block content
+    form.form-horizontal.col-md-6.col-sm-offset-3
+        .row.text-center
+            .form-group
+                label.control-label.col-sm-4  Chọn ngày report
+                .col-md-5
+                    input.form-control(type='date', name='reportDate')
+                button.btn.btn-success(type='submit', formaction='/dayreport', formmethod='post') Get report
+    table(data-toggle='table', data-locale='en-US',
+    data-classes='table table-no-bordered table-hover')
+        thead
+            tr
+                th STT
+                th Mã đơn hàng
+                th Tên khách hàng
+                th Sâm
+                th Bông cúc
+                th Rong biển
+                th Nha đam
+                th Yogurt
+                th Đã thu tiền
+        tbody
+            if tableData
+                - var i = 1
+                for data in tableData
+                    tr
+                        td=i++
+                        td=data.id
+                        td=data.CustomerName
+                        td=data.Sam
+                        td=data.BongCuc
+                        td=data.RongBien
+                        td=data.NhaDam
+                        td=data.Yogurt
+                        td=data.MoneyReceive

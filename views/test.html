@@ -63,39 +63,32 @@
     </div>
 </div>
 <!--Put your code here-->
-<div class="container">
-    <hr/>
-    <div align="center" class="well">
-        <h3><strong>Ingredient cost, this place control your money flow</strong></h3>
-    </div>
-    <hr/>
-    <form class="form-group">
-        <div class="input-group input-group-lg"><span class="input-group-addon">Nguyên liệu</span>
-            <input type="text" placeholder="Mua cái gì nè" name="material" class="form-control"/>
-        </div>
-        <div class="input-group input-group-lg"><span class="input-group-addon">Số lượng</span>
-            <input type="number" placeholder="Mua bao nhiêu ta ?" name="quantity" class="form-control"/>
-            <select name="unit" class="selectpicker">
-                <option>KG</option>
-                <option>Gam</option>
-                <option>Cái</option>
-                <option>Bịch</option>
-                <option>Quả</option>
-            </select>
-        </div>
-        <div class="input-group input-group-lg"><span class="input-group-addon">Địa chỉ</span>
-            <input type="text" placeholder="Mua ở đâu nhỉ" name="shopaddress" class="form-control"/>
-        </div>
-        <div class="input-group input-group-lg"><span class="input-group-addon">Giá thành</span>
-            <input type="number" placeholder="Hết bao nhiêu :(" name="price" class="form-control"/><span
-                    class="input-group-addon">VNĐ</span>
-        </div>
-        <div class="col-lg-4 col-lg-offset-4">
-            <button type="submit" formaction="/cost" formmethod="post" class="btn btn-success btn-lg btn-block">Submit
-            </button>
-        </div>
-    </form>
-</div>
+<form class="form-horizontal col-md-6 col-md-offset-3">
+	<div class="row text-center">
+	<div class="form-group">
+		<label class="control-label col-sm-4"> Chọn ngày report</label>
+		<div class="col-md-5">
+			<input type="date" name="reportDate" class="form-control"/>
+		</div>
+		<button type="submit" formaction="/submit" formmethod="post" class="btn btn-success">Get report</button>
+	</div>
+	</div>
+	</row>
+</form>
+<table data-toggle="table" data-locale="en-US" data-classes="table table-no-bordered table-hover">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Tên</th>
+        <th>Sâm</th>
+        <th>Bông cúc</th>
+        <th>Rong biển</th>
+        <th>Nha đam</th>
+        <th>Yogurt</th>
+        <th>Tổng tiền</th>
+    </tr>
+    </thead>
+</table>
 <!--End your code here-->
 <hr>
 <div class="row">

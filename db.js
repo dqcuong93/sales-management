@@ -85,44 +85,42 @@ var costing = sequelize.define('Costing', {
     }
 });
 
-// var thanhPham = sequelize.define('ThanhPham', {
-//     tenthanhpham: {
-//         type: Sequelize.TEXT
-//     }
-// });
-
 //Tables relationship
 customer.hasMany(invoice);
 
 //Add data to tables
-var createCustomer = function (requestBody) {
-    customer.create({
-        Name: requestBody.name,
-        Phone: requestBody.phone,
-        Address: requestBody.address
-    })
-};
-
 var createInvoice = function (requestBody) {
-    customer.findOne({
-        where: {
-            Name: requestBody.name,
-            Phone: requestBody.phone
-        }
-    }).then(function (_customer) {
-        var id = _customer.id;
-        invoice.create({
-            Sam: requestBody.sam,
-            BongCuc: requestBody.bongcuc,
-            NhaDam: requestBody.nhadam,
-            RongBien: requestBody.rongbien,
-            Yogurt: requestBody.yogurt,
-            ShippingAddress: requestBody.shipaddress,
-            InvoiceDate: requestBody.invoicedate,
-            MoneyReceive: requestBody.getmoney,
-            CustomerId: id
+    //Create customer if not exist first, then create invoice
+    if (requestBody.name || requestBody.phone) {
+        customer.findOrCreate({
+            where: {
+                Name: requestBody.name,
+                Phone: requestBody.phone
+            },
+            defaults: {
+                Address: requestBody.address
+            }
+        }).spread(function (createdCustomer, created) {
+            customer.findOne({
+                where: {
+                    Name: requestBody.name,
+                    Phone: requestBody.phone
+                }
+            }).then(function (_customer) {
+                invoice.create({
+                    Sam: requestBody.sam,
+                    BongCuc: requestBody.bongcuc,
+                    NhaDam: requestBody.nhadam,
+                    RongBien: requestBody.rongbien,
+                    Yogurt: requestBody.yogurt,
+                    ShippingAddress: requestBody.shipaddress,
+                    InvoiceDate: requestBody.invoicedate,
+                    MoneyReceive: requestBody.getmoney,
+                    CustomerId: _customer.id
+                });
+            })
         });
-    })
+    }
 };
 
 var createCost = function (requestBody) {
@@ -138,22 +136,41 @@ var createCost = function (requestBody) {
 
 //DB function
 var dataFinding = function (requestBody, callback) {
+    var searchstr = requestBody.searchstring.trim();    //trim() to remove spaces
     customer.findAll({
         where: {
             $or: [
-                {Name: {$like: '%' + requestBody.searchstring + '%'}},
-                {Phone: {$like: '%' + requestBody.searchstring + '%'}},
-                {Address: {$like: '%' + requestBody.searchstring + '%'}}
+                {Name: {$like: '%' + searchstr + '%'}},
+                {Phone: {$like: '%' + searchstr + '%'}},
+                {Address: {$like: '%' + searchstr + '%'}}
             ]
         }
     }).then(function (_customer) {
-        callback(JSON.stringify(_customer));
+        callback(JSON.parse(JSON.stringify(_customer)));
+    });
+};
+
+var dayReport = function (requestBody, callback) {
+    var customerNameArr;
+    invoice.findAndCountAll({
+        where: {
+            InvoiceDate: requestBody.reportDate
+        }
+    }).then(function (_invoice) {
+        var invoices = JSON.parse(JSON.stringify(_invoice));
+        for (i=0;i<invoices.rows.length;i++) {
+            customer.findById(invoices.rows[i].CustomerId)
+                .then(function (_customer) {
+                    invoices.rows[i]['CustomerName'] = _customer.Name
+                })
+        }
+        callback(invoices.rows);
     });
 };
 
 //Exports
 exports.sync = function () {
-    sequelize.sync({force: true}).then(function () {
+    sequelize.sync({force: false}).then(function () {
         console.log('Sync completed');
     });
 };
@@ -169,7 +186,7 @@ exports.authenticateConnection = function () {
         });
 };
 
-exports.createCustomer = createCustomer;
 exports.createInvoice = createInvoice;
 exports.dataFinding = dataFinding;
 exports.createCost = createCost;
+exports.dayReport = dayReport;
