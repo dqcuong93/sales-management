@@ -151,20 +151,24 @@ var dataFinding = function (requestBody, callback) {
 };
 
 var dayReport = function (requestBody, callback) {
-    var customerNameArr;
-    invoice.findAndCountAll({
+    invoice.findAll({
         where: {
             InvoiceDate: requestBody.reportDate
         }
     }).then(function (_invoice) {
         var invoices = JSON.parse(JSON.stringify(_invoice));
-        for (i=0;i<invoices.rows.length;i++) {
-            customer.findById(invoices.rows[i].CustomerId)
+        for (i = 0; i < invoices.length; i++) {
+            var invoiceRow = invoices[i];
+            customer.findById(invoiceRow.CustomerId)
                 .then(function (_customer) {
-                    invoices.rows[i]['CustomerName'] = _customer.Name
+                    invoiceRow.CustomerName = _customer.Name;
+                    invoices[i] = invoiceRow;
                 })
         }
-        callback(invoices.rows);
+        setTimeout(function () {
+            console.log(invoices);
+            callback(invoices)
+        }, 5000);
     });
 };
 
