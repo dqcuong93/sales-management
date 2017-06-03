@@ -87,6 +87,7 @@ var costing = sequelize.define('Costing', {
 
 //Tables relationship
 customer.hasMany(invoice);
+invoice.belongsTo(customer);
 
 //Add data to tables
 var createInvoice = function (requestBody) {
@@ -150,26 +151,15 @@ var dataFinding = function (requestBody, callback) {
     });
 };
 
-var dayReport = function (requestBody, callback) {
+var reportByDate = function (requestBody, callback) {
     invoice.findAll({
         where: {
             InvoiceDate: requestBody.reportDate
-        }
-    }).then(function (_invoice) {
-        var invoices = JSON.parse(JSON.stringify(_invoice));
-        for (i = 0; i < invoices.length; i++) {
-            var invoiceRow = invoices[i];
-            customer.findById(invoiceRow.CustomerId)
-                .then(function (_customer) {
-                    invoiceRow.CustomerName = _customer.Name;
-                    invoices[i] = invoiceRow;
-                })
-        }
-        setTimeout(function () {
-            console.log(invoices);
-            callback(invoices)
-        }, 5000);
-    });
+        },
+        include: [customer]
+    }).then(function (invoices) {
+        callback(JSON.parse(JSON.stringify(invoices)))
+    })
 };
 
 //Exports
@@ -193,4 +183,4 @@ exports.authenticateConnection = function () {
 exports.createInvoice = createInvoice;
 exports.dataFinding = dataFinding;
 exports.createCost = createCost;
-exports.dayReport = dayReport;
+exports.reportByDate = reportByDate;

@@ -52,26 +52,28 @@ app.post('/cost', function (req, res) {
     res.redirect('/cost')
 });
 
-//Not official yet
-app.post('/submit', function (req, res) {
-    var requestBody = JSON.parse(JSON.stringify(req.body));
-    console.log(requestBody);
-});
-
-app.get('/dayreport', function (req, res) {
+//Report page
+app.get('/datereport', function (req, res) {
     res.render('dayreport', {
         slogan: 'Report by date'
     });
 });
 
-app.post('/dayreport', function (req, res) {
-    db.dayReport(req.body, function (invoice) {
+app.post('/datereport', function (req, res) {
+    db.reportByDate(req.body, function (invoice) {
         res.render('dayreport', {
             slogan: 'Report by date',
             tableData: invoice
         });
     });
 });
+
+//Not official yet
+app.post('/submit', function (req, res) {
+    var requestBody = JSON.parse(JSON.stringify(req.body));
+    console.log(requestBody);
+});
+
 
 //Start server
 var server = app.listen(8080, function () {
