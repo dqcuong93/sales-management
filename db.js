@@ -12,6 +12,7 @@ const sequelize = new Sequelize('salesmanagerDB', 'admin', 'Adm!n', {
     // SQLite only
     storage: './database/salesmanager.db'
 });
+
 //Change UTC timezone
 sequelize.options.timezone = '+07:00';
 
@@ -175,7 +176,7 @@ exports.authenticateConnection = function () {
         .then(function () {
             console.log('Connection has been established successfully.');
         })
-        .catch(function () {
+        .catch(function (err) {
             console.error('Unable to connect to the database:', err);
         });
 };

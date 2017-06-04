@@ -4,7 +4,6 @@ html(lang='en')
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        title Homepage
         // Bootstrap
         link(href='./css/bootstrap.css', rel='stylesheet')
         link(href='./css/bootstrap-select.css', rel='stylesheet')
@@ -23,6 +22,8 @@ html(lang='en')
         script(src='./js/bootstrap-table.js')
         //put your locale files after bootstrap-table.js
         script(src='./js/bootstrap-table-locale-all.js')
+
+        title=title
     body
         nav.navbar.navbar-default.navbar-inverse
             .container-fluid
@@ -47,7 +48,7 @@ html(lang='en')
                                 span.caret
                             ul.dropdown-menu(role='menu')
                                 li
-                                    a(href='/dayreport') Date
+                                    a(href='/datereport') Date
                                 li
                                     a(href='#') Another action
                                 li

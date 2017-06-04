@@ -16,6 +16,7 @@ app.use(upload.array());
 //Home page
 app.get('/', function (req, res) {
     res.render('home', {
+        title: 'Home page',
         slogan: 'Have a nice day'
     });
 });
@@ -23,6 +24,7 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
     db.dataFinding(req.body, function (data) {
         res.render('home', {
+            title: 'Home page',
             tableData: data
         });
     });
@@ -31,6 +33,7 @@ app.post('/', function (req, res) {
 //Bill page
 app.get('/bill', function (req, res) {
     res.render('bill', {
+        title: 'Bill',
         slogan: 'Every day is a happy day, works as hard as you can'
     });
 });
@@ -43,6 +46,7 @@ app.post('/bill', function (req, res) {
 //Costing page
 app.get('/cost', function (req, res) {
     res.render('cost', {
+        title: 'Costing',
         slogan: 'Ingredient cost, this place control your money flow'
     });
 });
@@ -54,14 +58,16 @@ app.post('/cost', function (req, res) {
 
 //Report page
 app.get('/datereport', function (req, res) {
-    res.render('dayreport', {
+    res.render('datereport', {
+        title: 'Report by date',
         slogan: 'Report by date'
     });
 });
 
 app.post('/datereport', function (req, res) {
     db.reportByDate(req.body, function (invoice) {
-        res.render('dayreport', {
+        res.render('datereport', {
+            title: 'Report by date',
             slogan: 'Report by date',
             tableData: invoice
         });
