@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form#homeform.input-group.input-group-lg(method='post', action='/')
+    form#homeform.input-group.input-group(method='post', action='/')
         span.glyphicon.glyphicon-search.input-group-addon
         input#searchInput.form-control(type='search', placeholder='Anything about customer', name='searchstring')
     hr

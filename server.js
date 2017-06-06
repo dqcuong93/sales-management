@@ -39,7 +39,8 @@ app.get('/bill', function (req, res) {
 });
 
 app.post('/bill', function (req, res) {
-    db.createInvoice(req.body);
+    console.log(req.body);
+    // db.createInvoice(req.body);
     res.redirect('/bill');
 });
 
@@ -82,7 +83,7 @@ app.post('/submit', function (req, res) {
 
 
 //Start server
-var server = app.listen(8080, function () {
+var server = app.listen(1993, function () {
     console.log('Server has started on port ' + server.address().port);
     db.authenticateConnection();
     db.sync();

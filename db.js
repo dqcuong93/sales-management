@@ -86,9 +86,26 @@ var costing = sequelize.define('Costing', {
     }
 });
 
+var product = sequelize.define('Product', {
+    Name: {
+        type: Sequelize.TEXT
+    },
+    Type: {
+        type: Sequelize.TEXT
+    },
+    Price1: {
+        type: Sequelize.INTEGER
+    },
+    Price2: {
+        type: Sequelize.INTEGER
+    }
+});
+
 //Tables relationship
 customer.hasMany(invoice);
 invoice.belongsTo(customer);
+invoice.belongsTo(product);
+product.hasMany(invoice);
 
 //Add data to tables
 var createInvoice = function (requestBody) {

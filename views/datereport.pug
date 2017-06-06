@@ -1,11 +1,11 @@
 extends layout
 
 block content
-    form.form-horizontal.col-md-6.col-sm-offset-3
+    form.form-horizontal.col-sm-6.col-sm-offset-3
         .row.text-center
             .form-group
                 label.control-label.col-sm-4  Chọn ngày report
-                .col-md-5
+                .col-sm-5
                     input.form-control(type='date', name='reportDate')
                 button.btn.btn-success(type='submit', formaction='/datereport', formmethod='post') Get report
     table(data-toggle='table', data-locale='en-US',
