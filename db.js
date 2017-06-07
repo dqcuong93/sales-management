@@ -17,27 +17,7 @@ const sequelize = new Sequelize('salesmanagerDB', 'admin', 'Adm!n', {
 sequelize.options.timezone = '+07:00';
 
 //Define tables
-var invoice = sequelize.define('Invoice', {
-    Sam: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
-    BongCuc: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
-    NhaDam: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
-    RongBien: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
-    Yogurt: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
+var invoices = sequelize.define('Invoice', {
     ShippingAddress: {
         type: Sequelize.TEXT
     },
@@ -49,7 +29,7 @@ var invoice = sequelize.define('Invoice', {
     }
 });
 
-var customer = sequelize.define('Customer', {
+var customers = sequelize.define('Customer', {
     Name: {
         type: Sequelize.TEXT
     },
@@ -61,7 +41,39 @@ var customer = sequelize.define('Customer', {
     }
 });
 
-var costing = sequelize.define('Costing', {
+var products = sequelize.define('Product', {
+    Name: {
+        type: Sequelize.TEXT
+    },
+    Price1: {
+        type: Sequelize.INTEGER
+    },
+    Price2: {
+        type: Sequelize.INTEGER
+    }
+}, {
+    timestamps: false,
+    freezeTableName: true
+});
+
+var distribute = sequelize.define('Distribute', {
+    Type: {
+        type: Sequelize.TEXT
+    }
+}, {
+    timestamps: false,
+    freezeTableName: true
+});
+
+var invoice_product = sequelize.define('invoice_product', {
+    Quantity: {
+        type: Sequelize.INTEGER
+    }
+},{
+    timestamps: false
+});
+
+var costings = sequelize.define('Costing', {
     Material: {
         type: Sequelize.TEXT
     },
@@ -86,32 +98,21 @@ var costing = sequelize.define('Costing', {
     }
 });
 
-var product = sequelize.define('Product', {
-    Name: {
-        type: Sequelize.TEXT
-    },
-    Type: {
-        type: Sequelize.TEXT
-    },
-    Price1: {
-        type: Sequelize.INTEGER
-    },
-    Price2: {
-        type: Sequelize.INTEGER
-    }
-});
-
 //Tables relationship
-customer.hasMany(invoice);
-invoice.belongsTo(customer);
-invoice.belongsTo(product);
-product.hasMany(invoice);
+customers.hasMany(invoices);
+invoices.belongsTo(customers);
+invoices.belongsToMany(products, {
+    through: invoice_product
+});
+products.belongsToMany(invoices, {
+    through: invoice_product
+});
 
 //Add data to tables
 var createInvoice = function (requestBody) {
     //Create customer if not exist first, then create invoice
     if (requestBody.name || requestBody.phone) {
-        customer.findOrCreate({
+        customers.findOrCreate({
             where: {
                 Name: requestBody.name,
                 Phone: requestBody.phone
@@ -120,30 +121,20 @@ var createInvoice = function (requestBody) {
                 Address: requestBody.address
             }
         }).spread(function (createdCustomer, created) {
-            customer.findOne({
-                where: {
-                    Name: requestBody.name,
-                    Phone: requestBody.phone
-                }
-            }).then(function (_customer) {
-                invoice.create({
-                    Sam: requestBody.sam,
-                    BongCuc: requestBody.bongcuc,
-                    NhaDam: requestBody.nhadam,
-                    RongBien: requestBody.rongbien,
-                    Yogurt: requestBody.yogurt,
-                    ShippingAddress: requestBody.shipaddress,
-                    InvoiceDate: requestBody.invoicedate,
-                    MoneyReceive: requestBody.getmoney,
-                    CustomerId: _customer.id
-                });
-            })
+            invoices.create({
+                ShippingAddress: requestBody.shipaddress,
+                InvoiceDate: requestBody.invoicedate,
+                MoneyReceive: requestBody.getmoney,
+                CustomerId: createdCustomer.id
+            }).then(function (invoice) {
+
+            });
         });
     }
 };
 
 var createCost = function (requestBody) {
-    costing.create({
+    costings.create({
         Material: requestBody.material,
         Quantity: requestBody.quantity,
         Unit: requestBody.unit,
@@ -154,9 +145,9 @@ var createCost = function (requestBody) {
 };
 
 //DB function
-var dataFinding = function (requestBody, callback) {
+var customerFinder = function (requestBody, callback) {
     var searchstr = requestBody.searchstring.trim();    //trim() to remove spaces
-    customer.findAll({
+    customers.findAll({
         where: {
             $or: [
                 {Name: {$like: '%' + searchstr + '%'}},
@@ -164,19 +155,19 @@ var dataFinding = function (requestBody, callback) {
                 {Address: {$like: '%' + searchstr + '%'}}
             ]
         }
-    }).then(function (_customer) {
-        callback(JSON.parse(JSON.stringify(_customer)));
+    }).then(function (customer) {
+        callback(JSON.parse(JSON.stringify(customer)));
     });
 };
 
 var reportByDate = function (requestBody, callback) {
-    invoice.findAll({
+    invoices.findAll({
         where: {
             InvoiceDate: requestBody.reportDate
         },
-        include: [customer]
-    }).then(function (invoices) {
-        callback(JSON.parse(JSON.stringify(invoices)))
+        include: [customers]
+    }).then(function (invoice) {
+        callback(JSON.parse(JSON.stringify(invoice)))
     })
 };
 
@@ -199,6 +190,6 @@ exports.authenticateConnection = function () {
 };
 
 exports.createInvoice = createInvoice;
-exports.dataFinding = dataFinding;
+exports.customerFinder = customerFinder;
 exports.createCost = createCost;
 exports.reportByDate = reportByDate;

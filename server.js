@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    db.dataFinding(req.body, function (data) {
+    db.customerFinder(req.body, function (data) {
         res.render('home', {
             title: 'Home page',
             tableData: data
@@ -39,8 +39,7 @@ app.get('/bill', function (req, res) {
 });
 
 app.post('/bill', function (req, res) {
-    console.log(req.body);
-    // db.createInvoice(req.body);
+    db.createInvoice(req.body);
     res.redirect('/bill');
 });
 
