@@ -56,21 +56,37 @@ var products = sequelize.define('Product', {
     freezeTableName: true
 });
 
-var distribute = sequelize.define('Distribute', {
+var features = sequelize.define('Feature', {
     Type: {
         type: Sequelize.TEXT
+    }
+}, {
+    timestamps: false
+});
+
+var invoice_product_feature = sequelize.define('invoice_product_feature', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    Quantity: {
+        type: Sequelize.INTEGER
     }
 }, {
     timestamps: false,
     freezeTableName: true
 });
 
-var invoice_product = sequelize.define('invoice_product', {
-    Quantity: {
-        type: Sequelize.INTEGER
+var product_feature = sequelize.define('product_feature', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     }
-},{
-    timestamps: false
+}, {
+    timestamps: false,
+    freezeTableName: true
 });
 
 var costings = sequelize.define('Costing', {
@@ -101,11 +117,17 @@ var costings = sequelize.define('Costing', {
 //Tables relationship
 customers.hasMany(invoices);
 invoices.belongsTo(customers);
-invoices.belongsToMany(products, {
-    through: invoice_product
+features.belongsToMany(products, {
+    through: product_feature
 });
-products.belongsToMany(invoices, {
-    through: invoice_product
+products.belongsToMany(features, {
+    through: product_feature
+});
+product_feature.belongsToMany(invoices, {
+    through: invoice_product_feature
+});
+invoices.belongsToMany(product_feature, {
+    through: invoice_product_feature
 });
 
 //Add data to tables
@@ -127,7 +149,27 @@ var createInvoice = function (requestBody) {
                 MoneyReceive: requestBody.getmoney,
                 CustomerId: createdCustomer.id
             }).then(function (invoice) {
-
+                for (element in requestBody) {
+                    switch (element) {
+                        case 'samsize': {
+                            product_feature.findAll({
+                                include: [{
+                                    model: products,
+                                    where: {
+                                        Name: 'Sâm'
+                                    }
+                                }, {
+                                    model: features,
+                                    where: {
+                                        Type: 'Lớn'
+                                    }
+                                }]
+                            }).then(function (a) {
+                                console.log(a);
+                            })
+                        }
+                    }
+                }
             });
         });
     }
@@ -171,10 +213,31 @@ var reportByDate = function (requestBody, callback) {
     })
 };
 
+//Manual run at frist time
+var productFeatureTable = function () {
+    products.findAll()
+        .then(function (_products) {
+            var product = JSON.parse(JSON.stringify(_products));
+            features.findAll()
+                .then(function (_features) {
+                    var feature = JSON.parse(JSON.stringify(_features));
+                    for (i in _products) {
+                        for (j in _features) {
+                            product_feature.create({
+                                ProductId: product[i].id,
+                                FeatureId: feature[j].id
+                            })
+                        }
+                    }
+                })
+        })
+};
+
 //Exports
 exports.sync = function () {
     sequelize.sync({force: false}).then(function () {
         console.log('Sync completed');
+        // productFeatureTable();
     });
 };
 
