@@ -142,12 +142,14 @@ var createInvoice = function (requestBody) {
                 CustomerId: createdCustomer.id
             }).then(function (invoice) {
                 for (element in requestBody) {
-                    switch (element) {
-                        case 'samsize': {
-                            productFinder('Sâm', 'Lớn', function (result) {
-                                console.log(result)
-                            })
-                        }
+                    if (element === 'Sâm' || element === 'Bông cúc' || element === 'Rong biển' || element === 'Nha đam') {
+                        productFinder(element, "Lớn", function (result) {
+
+                        })
+                    } else {
+                        productFinder(element, "Nhỏ", function (result) {
+                            console.log(result);
+                        })
                     }
                 }
             });
