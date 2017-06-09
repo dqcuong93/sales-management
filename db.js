@@ -113,18 +113,20 @@ var costings = sequelize.define('Costing', {
 customers.hasMany(invoices);
 invoices.belongsTo(customers);
 
+product_feature.belongsTo(products);
+product_feature.belongsTo(features);
 products.belongsToMany(features, {
     through: product_feature
 });
-
 features.belongsToMany(products, {
     through: product_feature
 });
 
+invoice_product_feature.belongsTo(product_feature);
+invoice_product_feature.belongsTo(invoices);
 product_feature.belongsToMany(invoices, {
     through: invoice_product_feature
 });
-
 invoices.belongsToMany(product_feature, {
     through: invoice_product_feature
 });
@@ -151,23 +153,36 @@ var createInvoice = function (requestBody) {
                 for (element in requestBody) {
                     if (requestBody[element] === 'Lớn') {
                         productFinder(element, 'Lớn', function (result) {
-                            var productQuantity = vietnameseSlug(result.Name);
-                            invoice_product_feature.create({
-                                Quantity: requestBody[productQuantity.replace('-', '')],
-                                ProductFeatureId: result.id,
-                                InvoiceId: invoice.id
-                            })
+                            var quantity = requestBody[vietnameseSlug(result.Product.Name).replace('-', '')];
+                            if (quantity !== '0' && quantity !== '') {
+                                invoice_product_feature.create({
+                                    Quantity: quantity,
+                                    ProductFeatureId: result.id,
+                                    InvoiceId: invoice.id
+                                })
+                            }
                         })
                     } else if (requestBody[element] === 'Nhỏ') {
                         productFinder(element, 'Nhỏ', function (result) {
-                            var productQuantity = vietnameseSlug(result.Name);
-                            invoice_product_feature.create({
-                                Quantity: requestBody[productQuantity.replace('-', '')],
-                                ProductFeatureId: result.id,
-                                InvoiceId: invoice.id
-                            })
+                            var quantity = requestBody[vietnameseSlug(result.Product.Name).replace('-', '')];
+                            if (quantity !== '0' && quantity !== '') {
+                                invoice_product_feature.create({
+                                    Quantity: quantity,
+                                    ProductFeatureId: result.id,
+                                    InvoiceId: invoice.id
+                                })
+                            }
                         })
                     }
+                }
+                if (requestBody.yogurt !== '0' && requestBody.yogurt !== '') {
+                    productFinder('Yogurt', 'Nhỏ', function (result) {
+                        invoice_product_feature.create({
+                            Quantity: requestBody.yogurt,
+                            ProductFeatureId: result.id,
+                            InvoiceId: invoice.id
+                        })
+                    })
                 }
             });
         });
@@ -202,15 +217,20 @@ var customerFinder = function (requestBody, callback) {
 };
 
 var productFinder = function (productName, productFeature, callback) {
-    products.findOne({
-        where: {
-            Name: productName
-        },
+    product_feature.findOne({
+        attributes: ['id'],
         include: [{
+            model: products,
+            where: {
+                Name: productName
+            },
+            attributes: ['Name']
+        }, {
             model: features,
             where: {
                 Type: productFeature
-            }
+            },
+            attributes: []
         }]
     }).then(function (result) {
         callback(JSON.parse(JSON.stringify(result)));
@@ -222,20 +242,35 @@ var reportByDate = function (requestBody, callback) {
         where: {
             InvoiceDate: requestBody.reportDate
         },
+        attributes: ['id', 'ShippingAddress', 'InvoiceDate', 'MoneyReceive'],
         include: [{
             model: customers,
             attributes: ['Name']
         }, {
             model: product_feature,
-            include: {
-                model: products
-            }
+            include: [{
+                model: products,
+                attributes: ['Name', 'Price1', 'Price2']
+            }, {
+                model: features,
+                attributes: ['Type']
+            }]
         }]
     }).then(function (invoice) {
         var _invoice = JSON.parse(JSON.stringify(invoice));
-        console.log(_invoice);
-
-        // callback(JSON.parse(JSON.stringify(invoice)))
+        var totalCost = 0;
+        for (var i = 0; i < _invoice.length; i++) {
+            var productDetail = _invoice[i]['Product_Features'];
+            for (var j = 0; j < productDetail.length; j++) {
+                if (productDetail[j]['Feature'].Type === 'Lớn') {
+                    totalCost += (productDetail[j]['Invoice_Product_Feature'].Quantity * productDetail[j]['Product'].Price2);
+                } else if (productDetail[j]['Feature'].Type === 'Nhỏ') {
+                    totalCost += (productDetail[j]['Invoice_Product_Feature'].Quantity * productDetail[j]['Product'].Price1);
+                }
+            }
+            _invoice[i].totalCost = (totalCost + 'K');
+        }
+        callback(_invoice)
     })
 };
 

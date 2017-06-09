@@ -9,18 +9,15 @@ block content
                     input.form-control(type='date', name='reportDate')
                 button.btn.btn-success(type='submit', formaction='/datereport', formmethod='post') Get report
     table(data-toggle='table', data-locale='en-US',
-    data-classes='table table-no-bordered table-hover')
+    data-classes='table table-no-bordered table-hover', data-smart-display=true)
         thead
             tr
                 th STT
                 th Mã đơn hàng
                 th Tên khách hàng
-                th Sâm
-                th Bông cúc
-                th Rong biển
-                th Nha đam
-                th Yogurt
-                th Đã thu tiền
+                th Tổng cộng
+                th Thu tiền
+                th Đơn hàng
         tbody
             if tableData
                 - var i = 1
@@ -29,9 +26,9 @@ block content
                         td=i++
                         td=data.id
                         td=data.Customer.Name
-                        td=data.Sam
-                        td=data.BongCuc
-                        td=data.RongBien
-                        td=data.NhaDam
-                        td=data.Yogurt
+                        td=data.totalCost
                         td=data.MoneyReceive
+                        for product in data.Product_Features
+                            td=product.Invoice_Product_Feature.Quantity
+                            td=product.Product.Name
+                            td=product.Feature.Type

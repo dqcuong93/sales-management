@@ -1,6 +1,6 @@
 {
   "name": "salesmanager",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Phan mem quan ly ban hang",
   "main": "server.js",
   "scripts": {
