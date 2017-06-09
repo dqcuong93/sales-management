@@ -1,3 +1,4 @@
+var vietnameseSlug = require('vietnamese-slug');
 var Sequelize = require('sequelize');
 const sequelize = new Sequelize('salesmanagerDB', 'admin', 'Adm!n', {
     host: 'localhost',
@@ -72,7 +73,13 @@ var invoice_product_feature = sequelize.define('Invoice_Product_Feature', {
     freezeTableName: true
 });
 
-var product_feature = sequelize.define('Product_Feature', {}, {
+var product_feature = sequelize.define('Product_Feature', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    }
+}, {
     timestamps: false,
     freezeTableName: true
 });
@@ -141,14 +148,25 @@ var createInvoice = function (requestBody) {
                 MoneyReceive: requestBody.getmoney,
                 CustomerId: createdCustomer.id
             }).then(function (invoice) {
+                console.log(requestBody);
                 for (element in requestBody) {
-                    if (element === 'Sâm' || element === 'Bông cúc' || element === 'Rong biển' || element === 'Nha đam') {
-                        productFinder(element, "Lớn", function (result) {
-
+                    if (requestBody[element] === 'Lớn') {
+                        productFinder(element, 'Lớn', function (result) {
+                            var productQuantity = vietnameseSlug(result.Name);
+                            invoice_product_feature.create({
+                                Quantity: requestBody[productQuantity.replace('-', '')],
+                                ProductFeatureId: result.id,
+                                InvoiceId: invoice.id
+                            })
                         })
-                    } else {
-                        productFinder(element, "Nhỏ", function (result) {
-                            console.log(result);
+                    } else if(requestBody[element] === 'Nhỏ') {
+                        productFinder(element, 'Nhỏ', function (result) {
+                            var productQuantity = vietnameseSlug(result.Name);
+                            invoice_product_feature.create({
+                                Quantity: requestBody[productQuantity.replace('-', '')],
+                                ProductFeatureId: result.id,
+                                InvoiceId: invoice.id
+                            })
                         })
                     }
                 }

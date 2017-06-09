@@ -24,9 +24,9 @@ block content
                     .form-group
                         label.control-label.col-sm-4(for='getmoney') Thu tiền:
                         .col-sm-7
-                            select#getmoney.selectpicker(name='getmoney')
-                                option Yes
-                                option No
+                            select#getmoney.selectpicker(name='getmoney', data-width='auto')
+                                option Đã thu
+                                option Chưa thu
             .text-center.col-sm-8
                 h4
                     strong Đơn hàng
@@ -37,31 +37,35 @@ block content
                         .col-sm-3
                             input#sam.form-control(type='number', name='sam', value=0,
                             onclick='this.setSelectionRange(0, this.value.length)')
-                        .col-sm-1.checkbox
-                            input(type='checkbox', name='Sâm', value='big')
-                            | Lớn
+                        .col-sm-1
+                            select#getmoney.selectpicker(name='Sâm', data-width='auto')
+                                option Lớn
+                                option Nhỏ
                         label.col-sm-2.control-label(for='bongcuc') Bông cúc:
                         .col-sm-3
                             input#bongcuc.form-control(type='number', name='bongcuc', value=0,
                             onclick='this.setSelectionRange(0, this.value.length)')
-                        .col-sm-1.checkbox
-                            input(type='checkbox', name='Bông cúc', value='big')
-                            | Lớn
+                        .col-sm-1
+                            select#getmoney.selectpicker(name='Bông cúc', data-width='auto')
+                                option Lớn
+                                option Nhỏ
                     .form-group
                         label.control-label.col-sm-2(for='rongbien') Rong biển:
                         .col-sm-3
                             input#rongbien.form-control(type='number', name='rongbien', value=0,
                             onclick='this.setSelectionRange(0, this.value.length)')
-                        .col-sm-1.checkbox
-                            input(type='checkbox', name='Rong biển', value='big')
-                            | Lớn
+                        .col-sm-1
+                            select#getmoney.selectpicker(name='Rong biển', data-width='auto')
+                                option Lớn
+                                option Nhỏ
                         label.col-sm-2.control-label(for='nhadam') Nha đam:
                         .col-sm-3
                             input#nhadam.form-control(type='number', name='nhadam', value=0,
                             onclick='this.setSelectionRange(0, this.value.length)')
-                        .col-sm-1.checkbox
-                            input(type='checkbox', name='Nha đam', value='big')
-                            | Lớn
+                        .col-sm-1
+                            select#getmoney.selectpicker(name='Nha đam', data-width='auto')
+                                option Lớn
+                                option Nhỏ
                     .form-group
                         label.control-label.col-sm-2(for='yogurt') Yogurt:
                         .col-sm-3
