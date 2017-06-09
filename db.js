@@ -148,7 +148,6 @@ var createInvoice = function (requestBody) {
                 MoneyReceive: requestBody.getmoney,
                 CustomerId: createdCustomer.id
             }).then(function (invoice) {
-                console.log(requestBody);
                 for (element in requestBody) {
                     if (requestBody[element] === 'Lớn') {
                         productFinder(element, 'Lớn', function (result) {
@@ -159,7 +158,7 @@ var createInvoice = function (requestBody) {
                                 InvoiceId: invoice.id
                             })
                         })
-                    } else if(requestBody[element] === 'Nhỏ') {
+                    } else if (requestBody[element] === 'Nhỏ') {
                         productFinder(element, 'Nhỏ', function (result) {
                             var productQuantity = vietnameseSlug(result.Name);
                             invoice_product_feature.create({
@@ -223,9 +222,20 @@ var reportByDate = function (requestBody, callback) {
         where: {
             InvoiceDate: requestBody.reportDate
         },
-        include: [customers]
+        include: [{
+            model: customers,
+            attributes: ['Name']
+        }, {
+            model: product_feature,
+            include: {
+                model: products
+            }
+        }]
     }).then(function (invoice) {
-        callback(JSON.parse(JSON.stringify(invoice)))
+        var _invoice = JSON.parse(JSON.stringify(invoice));
+        console.log(_invoice);
+
+        // callback(JSON.parse(JSON.stringify(invoice)))
     })
 };
 
