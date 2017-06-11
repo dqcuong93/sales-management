@@ -29,6 +29,4 @@ block content
                         td=data.totalCost
                         td=data.MoneyReceive
                         for product in data.Product_Features
-                            td=product.Invoice_Product_Feature.Quantity
-                            td=product.Product.Name
-                            td=product.Feature.Type
+                            td=product.Invoice_Product_Feature.Quantity + ' ' + product.Product.Name + ' ' + product.Feature.Type.toLowerCase()
