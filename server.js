@@ -25,6 +25,7 @@ app.post('/', function (req, res) {
     db.customerFinder(req.body, function (data) {
         res.render('home', {
             title: 'Home page',
+            slogan: 'All your customer here, have a nice day',
             tableData: data
         });
     });
