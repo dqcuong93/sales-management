@@ -67,10 +67,13 @@ app.get('/datereport', function (req, res) {
 
 app.post('/datereport', function (req, res) {
     db.reportByDate(req.body, function (invoice) {
-        res.render('datereport', {
-            title: 'Report by date',
-            slogan: 'Report by date',
-            tableData: invoice
+        db.listAllProducts(function (listOfProducts) {
+            res.render('datereport', {
+                title: 'Report by date',
+                slogan: 'Report by date',
+                tableData: invoice,
+                allProduct: listOfProducts
+            });
         });
     });
 });

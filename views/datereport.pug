@@ -8,8 +8,7 @@ block content
                 .col-sm-5
                     input.form-control(type='date', name='reportDate')
                 button.btn.btn-success(type='submit', formaction='/datereport', formmethod='post') Get report
-    table(data-toggle='table', data-locale='en-US',
-    data-classes='table table-no-bordered table-hover', data-smart-display=true)
+    table#table(data-toggle='table', data-locale='en-US', data-classes='table table-no-bordered table-hover')
         thead
             tr
                 th STT
@@ -17,7 +16,10 @@ block content
                 th Tên khách hàng
                 th Tổng cộng
                 th Thu tiền
-                th Đơn hàng
+                if allProduct
+                    - var i = 1
+                    for product in allProduct
+                        th='Mặt hàng ' + i++
         tbody
             if tableData
                 - var i = 1
@@ -29,4 +31,4 @@ block content
                         td=data.totalCost
                         td=data.MoneyReceive
                         for product in data.Product_Features
-                            td=product.Invoice_Product_Feature.Quantity + ' ' + product.Product.Name + ' ' + product.Feature.Type.toLowerCase()
+                            td=(product.Invoice_Product_Feature.Quantity + ' ' + product.Product.Name + ' ' + product.Feature.Type.toLowerCase())
