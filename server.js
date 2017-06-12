@@ -78,6 +78,10 @@ app.post('/datereport', function (req, res) {
     });
 });
 
+app.put('/datereport', function (req, res) {
+    console.log(req.body);
+});
+
 //Not official yet
 app.post('/submit', function (req, res) {
     var requestBody = JSON.parse(JSON.stringify(req.body));

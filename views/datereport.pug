@@ -31,6 +31,23 @@ block content
                         td=data.id
                         td=data.Customer.Name
                         td=data.totalCost
-                        td=data.MoneyReceive
+                        td
+                            a#MoneyReceive(href='#', data-pk=data.id) #{data.MoneyReceive}
                         for product in data.Product_Features
                             td=(product.Invoice_Product_Feature.Quantity + ' ' + product.Product.Name + ' ' + product.Feature.Type.toLowerCase())
+
+    script.
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editable.defaults.ajaxOptions = {type: "put"};
+        $(function () {
+            $('#MoneyReceive').editable({
+                type: 'select',
+                value: 1,
+                source: [
+                    {value: 1, text: 'Bấm để chọn'},
+                    {value: 2, text: 'Đã thu'},
+                    {value: 3, text: 'Chưa thu'}
+                ],
+                url: '/datereport'
+            });
+        })
