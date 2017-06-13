@@ -282,6 +282,25 @@ var listAllProducts = function (callback) {
     })
 };
 
+var invoiceUpdate = function (requestBody, callback) {
+    var status;
+    if (requestBody.value === '1') {
+        status = 'Đã thu'
+    } else if (requestBody.value === '2') {
+        status = 'Chưa thu'
+    }
+    if (status) {
+        invoices.update({
+            MoneyReceive: status
+        }, {
+            where: {
+                id: requestBody.pk
+            }
+        }).then(function () {
+            callback()
+        })
+    }
+};
 //Manual run at frist time
 var productFeatureData = function () {
     products.findAll()
@@ -326,3 +345,4 @@ exports.customerFinder = customerFinder;
 exports.createCost = createCost;
 exports.reportByDate = reportByDate;
 exports.listAllProducts = listAllProducts;
+exports.invoiceUpdate = invoiceUpdate;

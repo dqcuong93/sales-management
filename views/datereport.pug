@@ -32,7 +32,7 @@ block content
                         td=data.Customer.Name
                         td=data.totalCost
                         td
-                            a#MoneyReceive(href='#', data-pk=data.id) #{data.MoneyReceive}
+                            a(href='#', data-pk=data.id) #{data.MoneyReceive}
                         for product in data.Product_Features
                             td=(product.Invoice_Product_Feature.Quantity + ' ' + product.Product.Name + ' ' + product.Feature.Type.toLowerCase())
 
@@ -40,9 +40,12 @@ block content
         $.fn.editable.defaults.mode = 'inline';
         $.fn.editable.defaults.ajaxOptions = {type: "put"};
         $(function () {
-            $('#MoneyReceive').editable({
+            $('#table a').editable({
                 type: 'select',
+                name: 'MoneyReceive',
+                value: 0,
                 source: [
+                    {value: 0, text: 'Bấm để chọn'},
                     {value: 1, text: 'Đã thu'},
                     {value: 2, text: 'Chưa thu'}
                 ],
