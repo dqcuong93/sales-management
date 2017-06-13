@@ -258,16 +258,14 @@ var reportByDate = function (requestBody, callback) {
         }]
     }).then(function (invoice) {
         var _invoice = JSON.parse(JSON.stringify(invoice));
-        var totalCost = 0;
         for (var i = 0; i < _invoice.length; i++) {
             var productDetail = _invoice[i]['Product_Features'];
+            var totalCost = 0;
             for (var j = 0; j < productDetail.length; j++) {
                 if (productDetail[j]['Feature'].Type === 'Lớn') {
-                    totalCost += (productDetail[j]['Invoice_Product_Feature']
-                        .Quantity * productDetail[j]['Product'].Price2);
+                    totalCost += (productDetail[j]['Invoice_Product_Feature'].Quantity * productDetail[j]['Product'].Price2);
                 } else if (productDetail[j]['Feature'].Type === 'Nhỏ') {
-                    totalCost += (productDetail[j]['Invoice_Product_Feature']
-                        .Quantity * productDetail[j]['Product'].Price1);
+                    totalCost += (productDetail[j]['Invoice_Product_Feature'].Quantity * productDetail[j]['Product'].Price1);
                 }
             }
             _invoice[i].totalCost = (totalCost + 'K');
@@ -279,7 +277,7 @@ var reportByDate = function (requestBody, callback) {
 var listAllProducts = function (callback) {
     products.findAll({
         attributes: ['Name']
-    }). then(function (_products) {
+    }).then(function (_products) {
         callback(JSON.parse(JSON.stringify(_products)))
     })
 };
