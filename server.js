@@ -80,6 +80,7 @@ app.post('/datereport', function (req, res) {
 
 app.put('/datereport', function (req, res) {
     console.log(req.body);
+    res.status(200).end();
 });
 
 //Not official yet

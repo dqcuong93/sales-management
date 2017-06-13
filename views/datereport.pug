@@ -42,11 +42,9 @@ block content
         $(function () {
             $('#MoneyReceive').editable({
                 type: 'select',
-                value: 1,
                 source: [
-                    {value: 1, text: 'Bấm để chọn'},
-                    {value: 2, text: 'Đã thu'},
-                    {value: 3, text: 'Chưa thu'}
+                    {value: 1, text: 'Đã thu'},
+                    {value: 2, text: 'Chưa thu'}
                 ],
                 url: '/datereport'
             });
