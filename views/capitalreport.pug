@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    table#table(data-toggle='table', data-locale='en-US', data-classes='table table-no-bordered table-hover')
+        thead
+            tr
+                th STT
+                th Mã nguyên liệu
+                th Tên nguyên liệu
+                th Số lượng
+                th Đơn vị
+                th Địa chỉ mua
+                th Đơn giá
+                th Tổng cộng
+                th Ngày mua
+        tbody
+            if tableData
+                - var i = 1
+                for data in tableData
+                    tr
+                        td=i++
+                        td=data.id
+                        td=data.Material
+                        td=data.Quantity
+                        td=data.Unit
+                        td=data.ShopAddress
+                        td=data.Price + 'K'
+                        td=data.Total + 'K'
+                        td=data.createdAt

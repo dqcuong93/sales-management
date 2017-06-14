@@ -29,7 +29,6 @@ var invoices = sequelize.define('Invoice', {
         type: Sequelize.TEXT
     }
 });
-
 var customers = sequelize.define('Customer', {
     Name: {
         type: Sequelize.TEXT
@@ -41,7 +40,6 @@ var customers = sequelize.define('Customer', {
         type: Sequelize.TEXT
     }
 });
-
 var products = sequelize.define('Product', {
     Name: {
         type: Sequelize.TEXT
@@ -55,7 +53,6 @@ var products = sequelize.define('Product', {
 }, {
     timestamps: false
 });
-
 var features = sequelize.define('Feature', {
     Type: {
         type: Sequelize.TEXT
@@ -63,7 +60,6 @@ var features = sequelize.define('Feature', {
 }, {
     timestamps: false
 });
-
 var invoice_product_feature = sequelize.define('Invoice_Product_Feature', {
     Quantity: {
         type: Sequelize.INTEGER
@@ -72,7 +68,6 @@ var invoice_product_feature = sequelize.define('Invoice_Product_Feature', {
     timestamps: false,
     freezeTableName: true
 });
-
 var product_feature = sequelize.define('Product_Feature', {
     id: {
         type: Sequelize.INTEGER,
@@ -83,8 +78,7 @@ var product_feature = sequelize.define('Product_Feature', {
     timestamps: false,
     freezeTableName: true
 });
-
-var costings = sequelize.define('Costing', {
+var materials = sequelize.define('Material', {
     Material: {
         type: Sequelize.TEXT
     },
@@ -112,7 +106,6 @@ var costings = sequelize.define('Costing', {
 //Tables relationship
 customers.hasMany(invoices);
 invoices.belongsTo(customers);
-
 product_feature.belongsTo(products);
 product_feature.belongsTo(features);
 products.belongsToMany(features, {
@@ -121,7 +114,6 @@ products.belongsToMany(features, {
 features.belongsToMany(products, {
     through: product_feature
 });
-
 invoice_product_feature.belongsTo(product_feature);
 invoice_product_feature.belongsTo(invoices);
 product_feature.belongsToMany(invoices, {
@@ -188,9 +180,8 @@ var createInvoice = function (requestBody) {
         });
     }
 };
-
-var createCost = function (requestBody) {
-    costings.create({
+var createMaterial = function (requestBody) {
+    materials.create({
         Material: requestBody.material,
         Quantity: requestBody.quantity,
         Unit: requestBody.unit,
@@ -215,7 +206,6 @@ var customerFinder = function (requestBody, callback) {
         callback(JSON.parse(JSON.stringify(customer)));
     });
 };
-
 var productFinder = function (productName, productFeature, callback) {
     product_feature.findOne({
         attributes: ['id'],
@@ -236,7 +226,6 @@ var productFinder = function (productName, productFeature, callback) {
         callback(JSON.parse(JSON.stringify(result)));
     })
 };
-
 var reportByDate = function (requestBody, callback) {
     invoices.findAll({
         where: {
@@ -273,7 +262,6 @@ var reportByDate = function (requestBody, callback) {
         callback(_invoice)
     })
 };
-
 var listAllProducts = function (callback) {
     products.findAll({
         attributes: ['Name']
@@ -281,7 +269,6 @@ var listAllProducts = function (callback) {
         callback(JSON.parse(JSON.stringify(_products)))
     })
 };
-
 var invoiceUpdate = function (requestBody, callback) {
     var status;
     if (requestBody.value === '1') {
@@ -301,6 +288,16 @@ var invoiceUpdate = function (requestBody, callback) {
         })
     }
 };
+var materialList = function (callback) {
+    materials.findAll().then(function (result) {
+        var _result = JSON.parse(JSON.stringify(result));
+        for (i = 0; i < _result.length; i++) {
+            _result[i]['createdAt'] = _result[i]['createdAt'].replace(/T/, ' ').replace(/\..+/, '');
+        }
+        callback(_result)
+    })
+};
+
 //Manual run at frist time
 var productFeatureData = function () {
     products.findAll()
@@ -328,7 +325,6 @@ exports.sync = function () {
         // productFeatureData();
     });
 };
-
 exports.authenticateConnection = function () {
     sequelize
         .authenticate()
@@ -339,10 +335,10 @@ exports.authenticateConnection = function () {
             console.error('Unable to connect to the database:', err);
         });
 };
-
 exports.createInvoice = createInvoice;
 exports.customerFinder = customerFinder;
-exports.createCost = createCost;
+exports.createMaterial = createMaterial;
 exports.reportByDate = reportByDate;
 exports.listAllProducts = listAllProducts;
 exports.invoiceUpdate = invoiceUpdate;
+exports.materialList = materialList;

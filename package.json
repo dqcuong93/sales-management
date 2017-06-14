@@ -1,6 +1,6 @@
 {
   "name": "salesmanager",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Phan mem quan ly ban hang",
   "main": "server.js",
   "scripts": {
@@ -10,11 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "buffer-shims": "^1.0.0",
     "express": "^4.15.3",
     "multer": "^1.3.0",
+    "process-nextick-args": "^1.0.7",
     "pug": "^2.0.0-rc.2",
-    "sequelize": "^3.30.4",
+    "sequelize": "^4.1.0",
     "sqlite3": "^3.1.8",
+    "util-deprecate": "^1.0.2",
     "vietnamese-slug": "^1.1.4"
   }
 }
