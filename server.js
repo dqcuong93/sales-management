@@ -94,6 +94,17 @@ app.get('/capitalreport', function (req, res) {
     });
 });
 
+//Invoice report
+app.get('/invoicereport', function (req, res) {
+    db.listAllInvoiceHaventTakenMoney(function (invoices) {
+        res.render('invoicereport', {
+            title: 'Invoice report',
+            slogan: 'This is the list of invoice haven\'t taken money',
+            tableData: invoices
+        });
+    })
+});
+
 //Not official yet
 app.post('/submit', function (req, res) {
     var requestBody = JSON.parse(JSON.stringify(req.body));

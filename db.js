@@ -297,6 +297,21 @@ var materialList = function (callback) {
         callback(_result)
     })
 };
+var listAllInvoiceHaventTakenMoney = function (callback) {
+    invoices.findAll({
+        where: {
+            MoneyReceive: 'Chưa thu'
+        },
+        attributes: ['id', 'InvoiceDate', 'MoneyReceive'],
+        include: [{
+            model: customers,
+            attributes: ['id', 'Name', 'Phone']
+        }]
+    }).then(function (result) {
+        var _invoices = JSON.parse(JSON.stringify(result));
+        callback(_invoices)
+    })
+};
 
 //Manual run at frist time
 var productFeatureData = function () {
@@ -342,3 +357,4 @@ exports.reportByDate = reportByDate;
 exports.listAllProducts = listAllProducts;
 exports.invoiceUpdate = invoiceUpdate;
 exports.materialList = materialList;
+exports.listAllInvoiceHaventTakenMoney = listAllInvoiceHaventTakenMoney;

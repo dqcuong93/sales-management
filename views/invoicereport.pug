@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    table#table(data-toggle='table', data-locale='en-US', data-classes='table table-no-bordered table-hover')
+        thead
+            tr
+                th STT
+                th Mã đơn hàng
+                th Mã khách hàng
+                th Tên khách hàng
+                th Số điện thoại
+                th Ngày hóa đơn
+                th Tình trạng
+        tbody
+            if tableData
+                - var i = 1
+                for data in tableData
+                    tr
+                        td=i++
+                        td=data.id
+                        td=data.Customer.id
+                        td=data.Customer.Name
+                        td=data.Customer.Phone
+                        td=data.InvoiceDate
+                        td=data.MoneyReceive
