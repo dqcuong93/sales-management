@@ -85,7 +85,6 @@ app.put('/datereport', function (req, res) {
 //Capital report page
 app.get('/capitalreport', function (req, res) {
     db.materialList(function (list) {
-        console.log(list);
         res.render('capitalreport', {
             title: 'Capital report',
             slogan: 'Choosing the best ingredients making the customer happier',
