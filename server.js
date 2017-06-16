@@ -76,7 +76,6 @@ app.post('/datereport', function (req, res) {
     });
 });
 app.put('/datereport', function (req, res) {
-    console.log(req.body);
     db.invoiceUpdate(req.body, function () {
         res.status(200).end()
     });
@@ -102,6 +101,11 @@ app.get('/invoicereport', function (req, res) {
             tableData: invoices
         });
     })
+});
+app.put('/invoicereport', function (req, res) {
+    db.invoiceUpdate(req.body, function () {
+        res.status(200).end()
+    });
 });
 
 //Not official yet
